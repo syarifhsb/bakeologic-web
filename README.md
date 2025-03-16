@@ -54,7 +54,7 @@ To run the project, follow these steps:
 bun run dev
 ```
 
-2. Open the application in your browser at the URL [http://localhost:3000](http://localhost:3000).
+2. Open the application in your browser at the URL [http://localhost:5173](http://localhost:5173).
 
 ## Links
 
