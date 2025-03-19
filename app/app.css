@@ -2,42 +2,32 @@
 
 @plugin "tailwindcss-animate";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: light) {
-    color-scheme: light;
-  }
-}
-
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --radius: 0.5rem;
+  --background: oklch(91.4% 0.0378 95.47);
+  --foreground: oklch(31.09% 0.0436 93.22);
+  --card: oklch(97.19% 0.0134 97.44);
+  --card-foreground: oklch(31.09% 0.0436 93.22);
+  --popover: oklch(97.19% 0.0134 97.44);
+  --popover-foreground: oklch(43.38% 0.0664 93.68);
+  --primary: oklch(43.38% 0.0664 93.68);
+  --primary-foreground: oklch(97.19% 0.0134 97.44);
+  --secondary: oklch(89.95% 0.0435 94.1);
+  --secondary-foreground: oklch(31.09% 0.0436 93.22);
+  --muted: oklch(85.68% 0.0623 94.16);
+  --muted-foreground: oklch(31.09% 0.0436 93.22);
+  --accent: oklch(97.19% 0.0134 97.44);
+  --accent-foreground: oklch(31.09% 0.0436 93.22);
+  --destructive: oklch(57.86% 0.2242 26.62);
+  --destructive-foreground: oklch(98.38% 0.0035 247.86);
+  --border: oklch(43.38% 0.0664 93.68);
+  --input: oklch(97.25% 0.0131 97.44);
+  --ring: oklch(71.07% 0.0351 256.79);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
