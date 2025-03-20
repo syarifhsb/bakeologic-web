@@ -5,7 +5,7 @@ import logo from "~/assets/logo.png";
 
 export function Header() {
   return (
-    <header className="flex flex-col justify-center mb-2">
+    <header className="mb-2">
       <div className="flex flex-row justify-center m-2">
         <div className="flex flex-row items-center justify-between w-6xl">
           <a href="/">
