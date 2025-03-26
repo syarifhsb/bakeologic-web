@@ -11,15 +11,8 @@ import {
 } from "~/components/ui/dropdown-menu";
 import logo from "~/assets/logo.png";
 import type { CategoriesJSON } from "~/modules/product/type";
-import { backendApiUrl } from "~/env";
 
-// export async function loader() {
-//   const response = await fetch(`${backendApiUrl}/categories`);
-//   const categories: CategoriesJSON = await response.json();
-//   return { categories };
-// }
-
-export function Header({ categories }: Route.ComponentProps) {
+export function Header({ categories }: { categories: CategoriesJSON }) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -29,10 +22,11 @@ export function Header({ categories }: Route.ComponentProps) {
           <Link to="/">
             <img src={logo} />
           </Link>
+
           <div className="flex flex-row justify-center items-center gap-x-8">
             <DropdownMenu open={open} onOpenChange={setOpen}>
               <DropdownMenuTrigger>
-                <Link to="/products">Products</Link>
+                <span className="p-2 cursor-pointer">Products</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
@@ -42,8 +36,10 @@ export function Header({ categories }: Route.ComponentProps) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+
             <Link to="/about">About</Link>
           </div>
+
           <div className="flex flex-row gap-x-4 items-center">
             <Form method="GET">
               <Input name="q" type="search" placeholder="Search" />

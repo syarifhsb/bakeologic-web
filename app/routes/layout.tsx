@@ -13,7 +13,7 @@ export async function loader() {
   return { categories };
 }
 
-export default function Layout(loaderData: Route.ComponentProps) {
+export default function Layout({ loaderData }: Route.ComponentProps) {
   const { categories } = loaderData;
 
   return (
