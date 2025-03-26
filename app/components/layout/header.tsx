@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, Form } from "react-router";
-import type { Route } from "./+types/categories";
 import { ShoppingCartIcon, UserRound } from "lucide-react";
 
 import { Input } from "~/components/ui/input";
@@ -14,15 +13,14 @@ import logo from "~/assets/logo.png";
 import type { CategoriesJSON } from "~/modules/product/type";
 import { backendApiUrl } from "~/env";
 
-export async function loader() {
-  const response = await fetch(`${backendApiUrl}/categories`);
-  const categories: CategoriesJSON = await response.json();
-  return { categories };
-}
+// export async function loader() {
+//   const response = await fetch(`${backendApiUrl}/categories`);
+//   const categories: CategoriesJSON = await response.json();
+//   return { categories };
+// }
 
-export function Header({ loaderData }: { loaderData: Route.ComponentProps }) {
+export function Header({ categories }: Route.ComponentProps) {
   const [open, setOpen] = React.useState(false);
-  const { categories } = loaderData;
 
   return (
     <header className="mb-2">
