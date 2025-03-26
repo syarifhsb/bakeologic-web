@@ -3,6 +3,7 @@ import type { Route } from "./+types/products";
 import { backendApiUrl } from "~/env";
 import type { ProductsJSON } from "~/modules/product/type";
 import { Card, CardContent } from "~/components/ui/card";
+import { DropdownMenu } from "~/components/ui/dropdown-menu";
 
 export function meta({}: Route.MetaArgs) {
   return [

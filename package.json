@@ -11,6 +11,7 @@
     "generate:prod": "openapi-typescript https://bakeologic-api.syarifhasibuan.com/openapi.json -o app/schema.d.ts"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.6",
     "@react-router/node": "^7.3.0",
     "@react-router/serve": "^7.3.0",
     "class-variance-authority": "^0.7.1",
