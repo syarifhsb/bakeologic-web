@@ -11,18 +11,30 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader() {
-  const response = await fetch(`${backendApiUrl}/products`);
+export async function loader({ request }: { request: Request }) {
+  const url = new URL(request.url);
+  const category = url.searchParams.get("category");
+
+  const apiUrl = new URL(`${backendApiUrl}/products`);
+  if (category) {
+    apiUrl.searchParams.set("category", category);
+  }
+
+  const response = await fetch(apiUrl.toString());
   const products: ProductsJSON = await response.json();
-  return { products };
+  return { products, category };
 }
 
 export default function Products({ loaderData }: Route.ComponentProps) {
-  const { products } = loaderData;
+  const { products, category } = loaderData;
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-semibold mt-5">Products</h1>
+      <h1 className="text-3xl font-semibold mt-5">
+        {category
+          ? `${category.charAt(0).toUpperCase() + category.slice(1)}`
+          : "All Products"}
+      </h1>
       <ul className="grid grid-cols-1 gap-15 sm:grid-cols-2 lg:grid-cols-3 my-5">
         {products.map((product) => {
           // TODO: Refactor to separate function
