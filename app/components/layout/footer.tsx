@@ -40,7 +40,7 @@ const footerLinks: FooterGroup[] = [
 
 export function Footer() {
   return (
-    <footer className="dark bg-background text-foreground mt-2">
+    <footer className="dark bg-background text-foreground mt-7">
       <div className="flex flex-row m-7 justify-between">
         <div>
           <img src={logoInverted} />
@@ -52,7 +52,7 @@ export function Footer() {
         <div className="flex flex-row gap-x-4">
           {footerLinks.map((group) =>
             group.type === "text" ? (
-              <div className="flex flex-col space-y-2" key={group.group}>
+              <div className="flex flex-col space-y-2 w-48" key={group.group}>
                 <div className="font-semibold">{group.group}</div>
                 <hr className="w-full" />
                 <div className="flex flex-col gap-y-1">
@@ -64,7 +64,7 @@ export function Footer() {
                 </div>
               </div>
             ) : group.type === "icon" ? (
-              <div className="flex flex-col space-y-2" key={group.group}>
+              <div className="flex flex-col space-y-2 w-48" key={group.group}>
                 <div className="font-semibold">{group.group}</div>
                 <hr className="w-full" />
                 <div className="flex flex-row gap-x-2">

@@ -16,9 +16,9 @@ import type { CategoriesJSON } from "~/modules/product/type";
 
 export function Header({ categories }: { categories: CategoriesJSON }) {
   return (
-    <header className="mb-2">
-      <div className="flex flex-row justify-center m-2">
-        <div className="flex flex-row items-center justify-between w-6xl">
+    <header className="mb-7">
+      <div className="flex flex-row mx-7 my-5">
+        <div className="flex flex-row items-center justify-between w-full">
           <Link to="/">
             <img src={logo} />
           </Link>
@@ -27,7 +27,9 @@ export function Header({ categories }: { categories: CategoriesJSON }) {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="font-medium text-xl">
+                    Products
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-4 w-[200px]">
                       <li>
@@ -56,10 +58,11 @@ export function Header({ categories }: { categories: CategoriesJSON }) {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuLink asChild>
-                    <Link to="/about" className="p-2">
-                      About
-                    </Link>
+                  <NavigationMenuLink
+                    asChild
+                    className="font-medium text-xl rounded-md h-9 px-4 py-2 has-[>svg]:px-3 inline-flex items-center justify-center gap-2"
+                  >
+                    <Link to="/about">About</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
