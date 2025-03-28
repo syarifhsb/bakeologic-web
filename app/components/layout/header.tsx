@@ -12,7 +12,7 @@ import {
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
 import logo from "~/assets/logo.png";
-import type { CategoriesJSON } from "~/modules/product/type";
+import type { CategoriesJSON } from "~/modules/category/type";
 
 export function Header({ categories }: { categories: CategoriesJSON }) {
   return (

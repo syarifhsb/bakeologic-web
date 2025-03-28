@@ -5,7 +5,7 @@ import { Header } from "~/components/layout/header";
 
 import type { Route } from "./+types/layout";
 import { backendApiUrl } from "~/env";
-import type { CategoriesJSON } from "~/modules/product/type";
+import type { CategoriesJSON } from "~/modules/category/type";
 
 export async function loader() {
   const response = await fetch(`${backendApiUrl}/categories`);
