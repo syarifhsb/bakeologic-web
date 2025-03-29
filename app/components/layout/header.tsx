@@ -82,7 +82,7 @@ export function Header({ categories }: { categories: CategoriesJSON }) {
           </div>
         </div>
       </div>
-      <hr className="w-screen" />
+      <hr />
     </header>
   );
 }
