@@ -43,7 +43,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           return (
             <li key={slug}>
               <Link to={`/products/${slug}`}>
-                <Card className="py-3 border-none bg-background shadow-none hover:shadow-foreground hover:shadow-md">
+                <Card className="py-3 border-none bg-background shadow-none hover:shadow-accent-foreground hover:shadow-md hover:bg-card">
                   <CardContent className="px-3">
                     <div className="flex flex-col gap-1">
                       <img src={imageUrl} alt={altText} width={325} />

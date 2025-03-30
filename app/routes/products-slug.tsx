@@ -40,14 +40,10 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
   });
 
   return (
-    <div className="flex flex-row gap-10 m-10 max-w-screen-xl">
-      <img
-        src={product?.images[0]?.url}
-        alt={product?.images[0]?.altText}
-        width={480}
-      />
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 my-10 mx-5 max-w-screen-xl">
+      <img src={product?.images[0]?.url} alt={product?.images[0]?.altText} />
       <div className="flex flex-col items-left gap-2">
-        <h1 className="text-3xl font-semibold">{product?.name}</h1>
+        <h1 className="text-3xl font-semibod">{product?.name}</h1>
         <hr />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

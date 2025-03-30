@@ -51,14 +51,19 @@ export default function Products({ loaderData }: Route.ComponentProps) {
           return (
             <li key={product.id}>
               <Link to={`/products/${product.slug}`}>
-                <Card className="py-3 border-none bg-background shadow-none hover:shadow-foreground hover:shadow-md">
+                <Card className="py-3 border-none bg-background shadow-none hover:shadow-accent-foreground hover:shadow-md hover:bg-card">
                   <CardContent className="px-3">
                     <div className="flex flex-col gap-1">
                       {/* TODO: <ProductImage product={product} /> */}
                       <img src={imageUrl} alt={altText} width={325} />
                       <h2 className="text-xl">{product.name}</h2>
                       <hr />
-                      <p className="text-xl">{product.price}</p>
+                      <p className="text-xl">
+                        {Number(product.price).toLocaleString("fr-FR", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        }) + " €"}
+                      </p>
                     </div>
                   </CardContent>
                 </Card>
