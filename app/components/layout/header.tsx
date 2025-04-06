@@ -70,7 +70,7 @@ export function Header({ categories }: { categories: CategoriesJSON }) {
           </div>
 
           <div className="flex flex-row gap-x-4 items-center">
-            <Form method="GET">
+            <Form action="/products">
               <Input name="q" type="search" placeholder="Search" />
             </Form>
             <Link to="/cart">

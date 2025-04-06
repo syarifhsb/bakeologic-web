@@ -13,12 +13,13 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ request }: { request: Request }) {
   const url = new URL(request.url);
-  const category = url.searchParams.get("category");
 
   const apiUrl = new URL(`${backendApiUrl}/products`);
-  if (category) {
-    apiUrl.searchParams.set("category", category);
-  }
+
+  const q = url.searchParams.get("q");
+  const category = url.searchParams.get("category");
+  if (q) apiUrl.searchParams.set("q", q);
+  if (category) apiUrl.searchParams.set("category", category);
 
   const response = await fetch(apiUrl.toString());
   const products: ProductsJSON = await response.json();

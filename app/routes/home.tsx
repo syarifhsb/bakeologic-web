@@ -30,7 +30,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="space-y-7 flex flex-col items-center justify-center">
-      <img src={MainImage} height="" />
+      <img src={MainImage} height={750} width={1200} />
       <h1 className="justify-center font-semibold text-3xl">FEATURED</h1>
       <ul className="grid grid-cols-1 gap-15 sm:grid-cols-2 lg:grid-cols-3">
         {featuredProducts.map((slug) => {
