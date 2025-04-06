@@ -11,9 +11,8 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ request }: { request: Request }) {
+export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
-
   const apiUrl = new URL(`${backendApiUrl}/products`);
 
   const q = url.searchParams.get("q");

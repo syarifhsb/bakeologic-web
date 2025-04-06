@@ -16,7 +16,7 @@ import type { CategoriesJSON } from "~/modules/category/type";
 
 export function Header({ categories }: { categories: CategoriesJSON }) {
   return (
-    <header className="mb-7">
+    <header className="mb-7 border-b">
       <div className="flex flex-row mx-7 my-5">
         <div className="flex flex-row items-center justify-between w-full">
           <Link to="/">
@@ -82,7 +82,6 @@ export function Header({ categories }: { categories: CategoriesJSON }) {
           </div>
         </div>
       </div>
-      <hr />
     </header>
   );
 }
