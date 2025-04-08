@@ -59,7 +59,7 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
       <div className="flex flex-col items-left gap-6">
         <h1 className="text-3xl font-semibold border-b">{product.name}</h1>
 
-        <p>TODO: product.description</p>
+        <p>{product.description}</p>
 
         <h2 className="text-xl font-medium text-accent-foreground">
           {Number(product.price).toLocaleString("fr-FR", {
