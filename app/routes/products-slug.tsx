@@ -11,6 +11,7 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { Form } from "react-router";
 import { Label } from "~/components/ui/label";
+import { pluralize } from "~/modules/common/utils";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const response = await fetch(`${backendApiUrl}/products/${params.slug}`);
@@ -68,8 +69,8 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
           }) + " €"}
         </h2>
 
-        <Form method="post">
-          <div className="flex flex-row gap-4">
+        <section className="flex gap-4 items-center">
+          <Form method="post" className="flex gap-4 items-center">
             <Label className="hidden">Quantity</Label>
             <Input
               name="quantity"
@@ -80,8 +81,12 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
               defaultValue={1}
             />
             <Button type="submit">Add to cart</Button>
-          </div>
-        </Form>
+          </Form>
+          <p>
+            {product.stockQuantity} {pluralize("item", product.stockQuantity)}{" "}
+            in stock
+          </p>
+        </section>
       </div>
     </div>
   );
