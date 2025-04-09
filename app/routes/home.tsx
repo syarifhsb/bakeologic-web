@@ -19,22 +19,20 @@ export async function loader() {
   return { products };
 }
 
-const featuredProducts = [
-  "butter-croissant",
-  "pain-au-chocolat",
-  "french-baguette",
-];
-
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { products } = loaderData;
+
+  const featuredProducts = products.filter((product) => {
+    return product.featured;
+  });
 
   return (
     <div className="space-y-7 flex flex-col items-center justify-center">
       <img src={MainImage} height={750} width={1200} />
       <h1 className="justify-center font-semibold text-3xl">FEATURED</h1>
       <ul className="grid grid-cols-1 gap-15 sm:grid-cols-2 lg:grid-cols-3">
-        {featuredProducts.map((slug) => {
-          const product = products.find((product) => product.slug === slug);
+        {featuredProducts.map((product) => {
+          const slug = product.slug;
           const productImageObject = product?.images[0];
           const imageUrl =
             productImageObject?.url || "https://placehold.co/300x200";
