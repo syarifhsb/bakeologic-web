@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 import { FacebookIcon, InstagramIcon, type LucideIcon } from "lucide-react";
 import logoInverted from "~/assets/logo-inverted.png";
 
@@ -18,14 +20,14 @@ const footerLinks: FooterGroup[] = [
   {
     group: "USEFUL INFORMATION",
     type: "text",
-    links: [{ name: "FAQ", text: "FAQ", href: "#" }],
+    links: [{ name: "FAQ", text: "FAQ", href: "/faq" }],
   },
   {
     group: "CONTACT US",
     type: "text",
     links: [
-      { name: "Contact", text: "Contact Information", href: "#" },
-      { name: "Shop", text: "Find our shops", href: "#" },
+      { name: "Contact", text: "Contact Information", href: "/contact" },
+      { name: "Shop", text: "Find our shops", href: "/shops" },
     ],
   },
   {
@@ -57,9 +59,9 @@ export function Footer() {
                 <hr className="w-full" />
                 <div className="flex flex-col gap-y-1">
                   {group.links.map((link) => (
-                    <a className="text-sm" href={link.href} key={link.name}>
+                    <Link to={link.href} className="text-sm" key={link.name}>
                       {link.text}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -69,9 +71,14 @@ export function Footer() {
                 <hr className="w-full" />
                 <div className="flex flex-row gap-x-2">
                   {group.links.map((link) => (
-                    <a className="text-sm" href={link.href} key={link.name}>
+                    <Link
+                      to={link.href}
+                      className="text-sm"
+                      key={link.name}
+                      target="_blank"
+                    >
                       {link.icon && <link.icon />}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
