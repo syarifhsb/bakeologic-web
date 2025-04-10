@@ -3,8 +3,8 @@ import type { Route } from "./+types/home";
 import MainImage from "~/assets/home.jpeg";
 import { backendApiUrl } from "~/env";
 import type { ProductsJSON } from "~/modules/product/type";
-import { Card, CardContent } from "~/components/ui/card";
 import { Link } from "react-router";
+import ProductCard from "~/components/custom/product-card";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -33,22 +33,11 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <ul className="grid grid-cols-1 gap-15 sm:grid-cols-2 lg:grid-cols-3">
         {featuredProducts.map((product) => {
           const slug = product.slug;
-          const productImageObject = product?.images[0];
-          const imageUrl =
-            productImageObject?.url || "https://placehold.co/300x200";
-          const altText = productImageObject?.altText || product?.name;
 
           return (
             <li key={slug}>
               <Link to={`/products/${slug}`}>
-                <Card className="py-3 border-none bg-background shadow-none hover:shadow-accent-foreground hover:shadow-md hover:bg-card">
-                  <CardContent className="px-3">
-                    <div className="flex flex-col gap-1">
-                      <img src={imageUrl} alt={altText} width={325} />
-                      <h2 className="text-xl">{product?.name}</h2>
-                    </div>
-                  </CardContent>
-                </Card>
+                <ProductCard product={product} variant={"featured"} />
               </Link>
             </li>
           );

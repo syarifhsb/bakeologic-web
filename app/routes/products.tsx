@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import type { Route } from "./+types/products";
 import { backendApiUrl } from "~/env";
 import type { ProductsJSON, ProductJSON } from "~/modules/product/type";
-import { Card, CardContent } from "~/components/ui/card";
 import ProductCard from "~/components/custom/product-card";
 
 export function meta({}: Route.MetaArgs) {
@@ -41,7 +40,7 @@ export default function Products({ loaderData }: Route.ComponentProps) {
           return (
             <li key={product.id}>
               <Link to={`/products/${product.slug}`}>
-                <ProductCard product={product} />
+                <ProductCard product={product} variant={"default"} />
               </Link>
             </li>
           );

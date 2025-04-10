@@ -7,13 +7,14 @@ const defaultImage = {
 
 export default async function ProductImage({
   image,
-}: {
+  ...props
+}: React.ComponentProps<"div"> & {
   image: ProductImageJSON | undefined;
 }) {
   const imageValidated = image ? image : defaultImage;
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full" {...props}>
       <img
         src={imageValidated.url}
         alt={imageValidated.altText}
