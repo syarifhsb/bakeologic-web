@@ -1,8 +1,9 @@
 import { Link } from "react-router";
 import type { Route } from "./+types/products";
 import { backendApiUrl } from "~/env";
-import type { ProductsJSON } from "~/modules/product/type";
+import type { ProductsJSON, ProductJSON } from "~/modules/product/type";
 import { Card, CardContent } from "~/components/ui/card";
+import ProductCard from "~/components/custom/product-card";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -36,42 +37,11 @@ export default function Products({ loaderData }: Route.ComponentProps) {
           : "All Products"}
       </h1>
       <ul className="grid grid-cols-1 gap-15 sm:grid-cols-2 lg:grid-cols-3 my-5">
-        {products.map((product) => {
-          // TODO: Refactor to separate function
-          const productImageObject = product.images[0];
-
-          const imageUrl = productImageObject?.url
-            ? productImageObject.url
-            : "https://placehold.co/300x200";
-
-          const altText = productImageObject?.altText
-            ? productImageObject.altText
-            : product.name;
-
+        {products.map((product: ProductJSON) => {
           return (
             <li key={product.id}>
               <Link to={`/products/${product.slug}`}>
-                <Card className="py-3 border-none bg-background shadow-none hover:shadow-accent-foreground hover:shadow-md hover:bg-card">
-                  <CardContent className="px-3">
-                    <div className="flex flex-col gap-1">
-                      {/* TODO: <ProductImage product={product} /> */}
-                      <img src={imageUrl} alt={altText} width={325} />
-                      <h2 className="text-xl">{product.name}</h2>
-                      <hr />
-                      <div className="flex flex-row justify-between items-center">
-                        <span className="text-xl">
-                          {Number(product.price).toLocaleString("fr-FR", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          }) + " €"}
-                        </span>
-                        <span className="text-sm">
-                          {product.stockQuantity} left
-                        </span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <ProductCard product={product} />
               </Link>
             </li>
           );
