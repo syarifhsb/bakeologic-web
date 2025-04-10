@@ -1,3 +1,4 @@
+import type { p } from "node_modules/@react-router/dev/dist/routes-DHIOx0R9";
 import type { ProductImageJSON } from "~/modules/product/type";
 
 const defaultImage = {
@@ -7,13 +8,14 @@ const defaultImage = {
 
 export default async function ProductImage({
   image,
-}: {
+  ...props
+}: React.ComponentProps<"div"> & {
   image: ProductImageJSON | undefined;
 }) {
   const imageValidated = image ? image : defaultImage;
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full" {...props}>
       <img
         src={imageValidated.url}
         alt={imageValidated.altText}
