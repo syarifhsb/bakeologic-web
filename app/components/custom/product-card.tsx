@@ -20,7 +20,7 @@ export default function ProductCard({
 
   return (
     <Card
-      className="py-3 border-none bg-background shadow-none hover:shadow-accent-foreground hover:shadow-md hover:bg-card"
+      className="py-3 md:border-none md:bg-background shadow-none hover:shadow-accent-foreground hover:shadow-md hover:bg-card"
       key={product.slug}
       {...props}
     >
