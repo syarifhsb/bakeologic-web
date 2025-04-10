@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import pluralize from "pluralize";
 import type { Route } from "./+types/products";
 import { backendApiUrl } from "~/env";
 import type { ProductsJSON } from "~/modules/product/type";
@@ -58,12 +59,18 @@ export default function Products({ loaderData }: Route.ComponentProps) {
                       <img src={imageUrl} alt={altText} width={325} />
                       <h2 className="text-xl">{product.name}</h2>
                       <hr />
-                      <p className="text-xl">
-                        {Number(product.price).toLocaleString("fr-FR", {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        }) + " €"}
-                      </p>
+                      <div className="flex flex-row justify-between items-center">
+                        <span className="text-xl">
+                          {Number(product.price).toLocaleString("fr-FR", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }) + " €"}
+                        </span>
+                        <span className="text-sm">
+                          {product.stockQuantity}{" "}
+                          {pluralize("item", product.stockQuantity)} left
+                        </span>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
