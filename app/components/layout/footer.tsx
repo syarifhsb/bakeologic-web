@@ -1,5 +1,12 @@
 import { Link } from "react-router";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "~/components/ui/accordion";
+
 import { FacebookIcon, InstagramIcon, type LucideIcon } from "lucide-react";
 import logoInverted from "~/assets/logo-inverted.png";
 
@@ -43,20 +50,50 @@ const footerLinks: FooterGroup[] = [
 export function Footer() {
   return (
     <footer className="dark bg-background text-foreground mt-7">
-      <div className="flex flex-row m-7 justify-between">
-        <div>
-          <img src={logoInverted} />
+      <div className="flex flex-col md:flex-row m-7 justify-between">
+        <Accordion className="md:hidden" type="single" collapsible>
+          {footerLinks.map((group) => (
+            <AccordionItem value={group.group} key={group.group}>
+              <AccordionTrigger className="font-semibold text-md">
+                {group.group}
+              </AccordionTrigger>
+              {group.type === "text" ? (
+                <AccordionContent className="flex flex-col gap-y-1">
+                  {group.links.map((link) => (
+                    <Link to={link.href} key={link.text} className="ml-4">
+                      {link.text}
+                    </Link>
+                  ))}
+                </AccordionContent>
+              ) : group.type === "icon" ? (
+                <AccordionContent className="flex flex-row gap-y-1">
+                  {group.links.map((link) => (
+                    <Link
+                      to={link.href}
+                      key={link.name}
+                      className="ml-4 text-sm"
+                    >
+                      {link.icon && <link.icon />}
+                    </Link>
+                  ))}
+                </AccordionContent>
+              ) : null}
+            </AccordionItem>
+          ))}
+        </Accordion>
+
+        <div className="flex flex-col items-center md:items-start mt-7 md:mt-0">
+          <img src={logoInverted} height={37} width={206} />
           <div className="text-sm font-semibold">
             Baking with logic, love and magic
           </div>
           <div className="mt-2">Bakeologic © 2025. All rights reserved.</div>
         </div>
-        <div className="flex flex-row gap-x-4">
+        <div className="hidden md:flex flex-row gap-x-4">
           {footerLinks.map((group) =>
             group.type === "text" ? (
               <div className="flex flex-col space-y-2 w-48" key={group.group}>
-                <div className="font-semibold">{group.group}</div>
-                <hr className="w-full" />
+                <div className="font-semibold border-b pb-2">{group.group}</div>
                 <div className="flex flex-col gap-y-1">
                   {group.links.map((link) => (
                     <Link to={link.href} className="text-sm" key={link.name}>
@@ -67,8 +104,7 @@ export function Footer() {
               </div>
             ) : group.type === "icon" ? (
               <div className="flex flex-col space-y-2 w-48" key={group.group}>
-                <div className="font-semibold">{group.group}</div>
-                <hr className="w-full" />
+                <div className="font-semibold border-b pb-2">{group.group}</div>
                 <div className="flex flex-row gap-x-2">
                   {group.links.map((link) => (
                     <Link

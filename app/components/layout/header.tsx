@@ -16,14 +16,14 @@ import type { CategoriesJSON } from "~/modules/category/type";
 
 export function Header({ categories }: { categories: CategoriesJSON }) {
   return (
-    <header className="mb-7 border-b">
+    <header className="mb-0 md:mb-7 border-b">
       <div className="flex flex-row mx-7 my-5">
-        <div className="flex flex-row items-center justify-between w-full">
+        <div className="flex flex-row items-center justify-center md:justify-between w-full">
           <Link to="/">
-            <img src={logo} />
+            <img src={logo} height={45} width={207} />
           </Link>
 
-          <div className="flex flex-row justify-center items-center gap-x-8">
+          <div className="hidden md:flex flex-row justify-center items-center gap-x-8">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
@@ -69,7 +69,7 @@ export function Header({ categories }: { categories: CategoriesJSON }) {
             </NavigationMenu>
           </div>
 
-          <div className="flex flex-row gap-x-4 items-center">
+          <div className="hidden md:flex flex-row gap-x-4 items-center">
             <Form action="/products">
               <Input name="q" type="search" placeholder="Search" />
             </Form>
