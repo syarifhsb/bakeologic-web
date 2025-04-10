@@ -1,3 +1,4 @@
+import type { p } from "node_modules/@react-router/dev/dist/routes-DHIOx0R9";
 import type { ProductImageJSON } from "~/modules/product/type";
 
 const defaultImage = {
