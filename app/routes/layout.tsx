@@ -6,6 +6,7 @@ import { Header } from "~/components/layout/header";
 import type { Route } from "./+types/layout";
 import { backendApiUrl } from "~/env";
 import type { CategoriesJSON } from "~/modules/category/type";
+import { MenuButton } from "~/components/layout/menu-button";
 
 export async function loader() {
   const response = await fetch(`${backendApiUrl}/categories`);
@@ -25,6 +26,8 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
       </main>
 
       <Footer />
+
+      <MenuButton />
     </div>
   );
 }
