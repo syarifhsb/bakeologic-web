@@ -1,7 +1,6 @@
-import React from "react";
-import { Link, Form } from "react-router";
 import { ShoppingCartIcon, UserRound } from "lucide-react";
-
+import { Form, Link } from "react-router";
+import { Logo } from "~/components/custom/logo";
 import { Input } from "~/components/ui/input";
 import {
   NavigationMenu,
@@ -11,45 +10,34 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
-import logo from "~/assets/logo.png";
-import type { CategoriesJSON } from "~/modules/category/type";
+import type { MenuItems } from "~/modules/common/type";
 
-export function Header({ categories }: { categories: CategoriesJSON }) {
+export function Header({ menuItems }: { menuItems: MenuItems }) {
   return (
     <header className="mb-0 md:mb-7 border-b">
       <div className="flex flex-row mx-7 my-5">
         <div className="flex flex-row items-center justify-center md:justify-between w-full">
           <Link to="/">
-            <img src={logo} height={45} width={207} />
+            <Logo />
           </Link>
 
-          <div className="hidden md:flex flex-row justify-center items-center gap-x-8">
+          <div className="hidden md:flex flex-row justify-center items-center gap-x-4">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="font-medium text-xl">
+                  <NavigationMenuTrigger className="font-medium text-md">
                     Products
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid gap-3 p-4 w-[200px]">
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/products"
-                            className="block w-full p-2 rounded-md transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none"
-                          >
-                            All Products
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      {categories.map((category) => (
-                        <li key={category.id}>
+                    <ul className="p-2 w-[200px]">
+                      {menuItems.map((menuItem) => (
+                        <li key={menuItem.to}>
                           <NavigationMenuLink asChild>
                             <Link
-                              to={`/products?category=${category.slug}`}
+                              to={`/products?category=${menuItem.to}`}
                               className="block w-full p-2 rounded-md transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none"
                             >
-                              {category.name}
+                              {menuItem.name}
                             </Link>
                           </NavigationMenuLink>
                         </li>
@@ -60,7 +48,7 @@ export function Header({ categories }: { categories: CategoriesJSON }) {
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     asChild
-                    className="font-medium text-xl rounded-md h-9 px-4 py-2 has-[>svg]:px-3 inline-flex items-center justify-center gap-2"
+                    className="font-medium text-md rounded-md h-9 px-4 py-2 has-[>svg]:px-3 inline-flex items-center justify-center gap-2"
                   >
                     <Link to="/about">About</Link>
                   </NavigationMenuLink>
@@ -71,7 +59,12 @@ export function Header({ categories }: { categories: CategoriesJSON }) {
 
           <div className="hidden md:flex flex-row gap-x-4 items-center">
             <Form action="/products">
-              <Input name="q" type="search" placeholder="Search" />
+              <Input
+                name="q"
+                type="search"
+                placeholder="Search"
+                className="w-52"
+              />
             </Form>
             <Link to="/cart">
               <ShoppingCartIcon />

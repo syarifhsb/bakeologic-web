@@ -1,3 +1,12 @@
+import type { Route } from "./+types/about";
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "About Bakeologic" },
+    { name: "description", content: "Baking with logic, love and magic." },
+  ];
+}
+
 export default function AboutPage() {
   return (
     <div className="container mx-auto px-4 py-8">

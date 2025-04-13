@@ -1,10 +1,7 @@
 import type { Route } from "./+types/faq";
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Bakeologic" },
-    { name: "description", content: "Baking with logic, love and magic." },
-  ];
+  return [{ title: "FAQ - Bakeologic" }];
 }
 
 const faqs = [

@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 
 import "./app.css";
+
 import "@fontsource/merriweather";
 
 export function Layout({ children }: { children: React.ReactNode }) {

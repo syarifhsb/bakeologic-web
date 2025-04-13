@@ -1,8 +1,7 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
-
-@plugin "tailwindcss-animate";
 
 @theme {
   --font-sans: ui-sans-serif, system-ui, sans-serif;
