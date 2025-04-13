@@ -27,7 +27,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
 
       <Footer />
 
-      <MenuButton />
+      <MenuButton categories={categories} />
     </div>
   );
 }

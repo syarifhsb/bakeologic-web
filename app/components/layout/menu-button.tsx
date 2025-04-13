@@ -11,12 +11,24 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "~/components/ui/drawer";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 
-import { MenuIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 
-export function MenuButton() {
+import { MenuIcon } from "lucide-react";
+
+import type { CategoriesJSON } from "~/modules/category/type";
+
+export function MenuButton({ categories }: { categories: CategoriesJSON }) {
   const [open, setOpen] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -48,6 +60,44 @@ export function MenuButton() {
             <DrawerDescription>Explore our products</DrawerDescription>
           </DrawerHeader>
           <div className="flex flex-col items-center justify-center my-4 gap-y-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant={"ghost"} className="cursor-pointer">
+                  Products
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-[200px]">
+                <DropdownMenuLabel>Categories</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem key={"all"}>
+                    <Link
+                      to="/products"
+                      className="block w-full p-2 rounded-md transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none"
+                    >
+                      All Products
+                    </Link>
+                  </DropdownMenuItem>
+                  {categories.map((category) => (
+                    <DropdownMenuItem key={category.slug}>
+                      <DrawerClose asChild>
+                        <Link
+                          to={`/products?category=${category.slug}`}
+                          className="block w-full p-2 rounded-md transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none"
+                        >
+                          {category.name}
+                        </Link>
+                      </DrawerClose>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DrawerClose asChild>
+              <Button variant={"ghost"} asChild>
+                <Link to="/about">About</Link>
+              </Button>
+            </DrawerClose>
             <Form action="/products" onSubmit={handleSubmit}>
               <Input name="q" type="search" placeholder="Search" />
             </Form>
