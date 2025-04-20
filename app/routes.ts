@@ -15,6 +15,12 @@ export default [
     route("contact", "routes/contact.tsx"),
     route("shops", "routes/shops.tsx"),
     route("cart", "routes/cart.tsx"),
-    route("dashboard", "routes/dashboard.tsx"),
+
+    // ✅ TODO
+    // route("register", "routes/register.tsx"),
+    // route("login", "routes/login.tsx"),
+    // route("dashboard", "routes/dashboard.tsx"),
+    // route("logout", "routes/logout.tsx"),
+    // route("cart", "routes/cart.tsx"),
   ]),
 ] satisfies RouteConfig;
