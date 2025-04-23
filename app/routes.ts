@@ -17,10 +17,10 @@ export default [
     route("cart", "routes/cart.tsx"),
 
     // ✅ TODO
-    // route("register", "routes/register.tsx"),
-    // route("login", "routes/login.tsx"),
     // route("dashboard", "routes/dashboard.tsx"),
     // route("logout", "routes/logout.tsx"),
     // route("cart", "routes/cart.tsx"),
   ]),
+  route("auth/register", "routes/register.tsx"),
+  route("auth/login", "routes/login.tsx"),
 ] satisfies RouteConfig;
