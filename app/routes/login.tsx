@@ -1,7 +1,11 @@
 import { Link } from "react-router";
 import { LoginForm } from "~/components/custom/login-form";
-
 import { Logo } from "~/components/custom/logo";
+import type { Route } from "./+types/login";
+
+export function meta({}: Route.MetaArgs) {
+  return [{ title: "Login to Bakeologic" }];
+}
 
 export default function Login() {
   return (

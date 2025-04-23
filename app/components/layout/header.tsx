@@ -11,6 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
 import type { MenuItems } from "~/modules/common/type";
+import { Button } from "../ui/button";
 
 export function Header({ menuItems }: { menuItems: MenuItems }) {
   return (
@@ -72,6 +73,12 @@ export function Header({ menuItems }: { menuItems: MenuItems }) {
             <Link to="/dashboard">
               <UserRound />
             </Link>
+            <Button asChild size="sm" variant="secondary">
+              <Link to="/register">Register</Link>
+            </Button>
+            <Button asChild size="sm">
+              <Link to="/login">Login</Link>
+            </Button>
           </div>
         </div>
       </div>

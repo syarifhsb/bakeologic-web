@@ -23,7 +23,7 @@ export function LoginForm({
           <CardDescription>Login to your Bakeologic account</CardDescription>
         </CardHeader>
         <CardContent>
-          <Form action="/auth/login">
+          <Form method="post">
             <div className="grid gap-6">
               <div className="grid gap-6">
                 <div className="grid gap-2">
@@ -38,12 +38,12 @@ export function LoginForm({
                 <div className="grid gap-2">
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
-                    <Link
+                    {/* <Link
                       to="/reset"
                       className="ml-auto text-sm underline-offset-4 hover:underline"
                     >
                       Forgot your password?
-                    </Link>
+                    </Link> */}
                   </div>
                   <Input id="password" type="password" required />
                 </div>
@@ -53,11 +53,8 @@ export function LoginForm({
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <Link
-                  to="/auth/register"
-                  className="underline underline-offset-4"
-                >
-                  Sign up
+                <Link to="/register" className="underline underline-offset-4">
+                  Register
                 </Link>
               </div>
             </div>

@@ -1,6 +1,11 @@
 import { Link } from "react-router";
 import { Logo } from "~/components/custom/logo";
 import { RegisterForm } from "~/components/custom/register-form";
+import type { Route } from "./+types/register";
+
+export function meta({}: Route.MetaArgs) {
+  return [{ title: "Register for a new Bakeologic account" }];
+}
 
 export default function Login() {
   return (

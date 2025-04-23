@@ -21,11 +21,11 @@ export function RegisterForm({
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Create a Bakeologic account</CardTitle>
           <CardDescription>
-            Sign up to enjoy all our our magical baking
+            Register to enjoy all our our magical baking
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Form action="/auth/login">
+          <Form method="post">
             <div className="grid gap-6">
               <div className="grid gap-6">
                 <div className="grid gap-2">
@@ -77,8 +77,8 @@ export function RegisterForm({
               </div>
               <div className="text-center text-sm">
                 Already have an account?{" "}
-                <Link to="/auth/login" className="underline underline-offset-4">
-                  Log in
+                <Link to="/login" className="underline underline-offset-4">
+                  Login
                 </Link>
               </div>
             </div>
