@@ -27,11 +27,12 @@ export function LoginForm({
             <div className="grid gap-6">
               <div className="grid gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="username">Username</Label>
                   <Input
-                    id="email"
-                    type="email"
-                    placeholder="user@example.com"
+                    id="username"
+                    type="text"
+                    name="username"
+                    placeholder="syarifhsb"
                     required
                   />
                 </div>
@@ -45,7 +46,12 @@ export function LoginForm({
                       Forgot your password?
                     </Link> */}
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input
+                    id="password"
+                    type="password"
+                    name="password"
+                    required
+                  />
                 </div>
                 <Button type="submit" className="w-full">
                   Login
