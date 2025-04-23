@@ -12,6 +12,11 @@ export async function action({ request }: Route.ActionArgs) {
 
   const registerUserData = {
     username: formData.get("username") as string,
+    email: formData.get("email") as string,
+    firstName: formData.get("first-name") as string,
+    lastName: formData.get("last-name") as string,
+    phone: formData.get("phone") as string,
+    password: formData.get("password") as string,
   };
 
   console.log({ registerUserData });

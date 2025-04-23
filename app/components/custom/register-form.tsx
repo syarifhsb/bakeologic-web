@@ -65,6 +65,7 @@ export function RegisterForm({
                   <Input
                     id="last-name"
                     type="text"
+                    name="last-name"
                     placeholder="Hasibuan"
                     required
                   />
@@ -74,17 +75,28 @@ export function RegisterForm({
                   <Input
                     id="phone"
                     type="tel"
+                    name="phone"
                     placeholder="+33-123-456-789"
                     required
                   />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" required />
+                  <Input
+                    id="password"
+                    type="password"
+                    name="password"
+                    required
+                  />
                 </div>
                 {/* <div className="grid gap-2">
-                  <Label htmlFor="confirmPassword">Confirm Password</Label>
-                  <Input id="confirmPassword" type="password" required />
+                  <Label htmlFor="confirm-password">Confirm Password</Label>
+                  <Input
+                    id="confirm-password"
+                    type="password"
+                    name="confirm-password"
+                    required
+                  />
                 </div> */}
                 <Button type="submit" className="w-full">
                   Register
