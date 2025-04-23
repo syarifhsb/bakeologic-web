@@ -1,10 +1,25 @@
-import { Link } from "react-router";
+import { Link, redirect } from "react-router";
 import { Logo } from "~/components/custom/logo";
 import { RegisterForm } from "~/components/custom/register-form";
 import type { Route } from "./+types/register";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Register for a new Bakeologic account" }];
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  const formData = await request.formData();
+
+  const registerUserData = {
+    username: formData.get("username") as string,
+  };
+
+  console.log({ registerUserData });
+
+  // Request to backend API
+
+  return null;
+  // return redirect("/login");
 }
 
 export default function Login() {
@@ -17,6 +32,7 @@ export default function Login() {
         >
           <Logo />
         </Link>
+
         <RegisterForm />
       </div>
     </div>

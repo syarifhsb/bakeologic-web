@@ -29,50 +29,65 @@ export function RegisterForm({
             <div className="grid gap-6">
               <div className="grid gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="username">User Name</Label>
-                  <Input
-                    id="username"
-                    type="text"
-                    placeholder="john_doe"
-                    required
-                  />
-                </div>
-                <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="user@example.com"
+                    name="email"
+                    placeholder="syarif@example.com"
                     required
                   />
                 </div>
+
                 <div className="grid gap-2">
-                  <Label htmlFor="firstName">First Name</Label>
+                  <Label htmlFor="username">Username</Label>
                   <Input
-                    id="firstName"
+                    id="username"
                     type="text"
-                    placeholder="John"
+                    name="username"
+                    placeholder="syarifhsb"
+                    required
+                  />
+                </div>
+
+                <div className="grid gap-2 text-center">
+                  <Label htmlFor="first-name">First Name</Label>
+                  <Input
+                    id="first-name"
+                    type="text"
+                    name="first-name"
+                    placeholder="Syarif"
                     required
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input id="lastName" type="text" placeholder="Doe" required />
+                  <Label htmlFor="last-name">Last Name</Label>
+                  <Input
+                    id="last-name"
+                    type="text"
+                    placeholder="Hasibuan"
+                    required
+                  />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" type="tel" placeholder="" required />
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="+33-123-456-789"
+                    required
+                  />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="password">Password</Label>
                   <Input id="password" type="password" required />
                 </div>
-                <div className="grid gap-2">
+                {/* <div className="grid gap-2">
                   <Label htmlFor="confirmPassword">Confirm Password</Label>
                   <Input id="confirmPassword" type="password" required />
-                </div>
+                </div> */}
                 <Button type="submit" className="w-full">
-                  Login
+                  Register
                 </Button>
               </div>
               <div className="text-center text-sm">
