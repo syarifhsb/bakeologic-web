@@ -1,4 +1,4 @@
-import { Link, redirect } from "react-router";
+import { data, Link, redirect } from "react-router";
 import { Logo } from "~/components/custom/logo";
 import { RegisterForm } from "~/components/custom/register-form";
 import { backendApiUrl } from "~/env";
@@ -7,9 +7,21 @@ import type {
   AuthRegisterResponseBody,
 } from "~/modules/auth/type";
 import type { Route } from "./+types/register";
+import { commitSession, getSession } from "~/sessions.server";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Register for a new Bakeologic account" }];
+}
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
+  if (session.has("token")) {
+    return redirect("/dashboard");
+  }
+  return data(
+    { error: session.get("error") },
+    { headers: { "Set-Cookie": await commitSession(session) } }
+  );
 }
 
 export async function action({ request }: Route.ActionArgs) {

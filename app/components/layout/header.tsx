@@ -12,8 +12,17 @@ import {
 } from "~/components/ui/navigation-menu";
 import type { MenuItems } from "~/modules/common/type";
 import { Button } from "../ui/button";
+import type { AuthMeResponseBody } from "~/modules/auth/type";
 
-export function Header({ menuItems }: { menuItems: MenuItems }) {
+export function Header({
+  menuItems,
+  user,
+}: {
+  menuItems: MenuItems;
+  user?: AuthMeResponseBody;
+}) {
+  const isAuthenticated = Boolean(user?.id);
+
   return (
     <header className="mb-0 md:mb-7 border-b">
       <div className="flex flex-row mx-7 my-5">
@@ -67,18 +76,28 @@ export function Header({ menuItems }: { menuItems: MenuItems }) {
                 className="w-52"
               />
             </Form>
-            <Link to="/cart">
-              <ShoppingCartIcon />
-            </Link>
-            <Link to="/dashboard">
-              <UserRound />
-            </Link>
-            <Button asChild size="sm" variant="secondary">
-              <Link to="/register">Register</Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link to="/login">Login</Link>
-            </Button>
+
+            {isAuthenticated && (
+              <>
+                <Link to="/cart">
+                  <ShoppingCartIcon />
+                </Link>
+                <Link to="/dashboard">
+                  <UserRound />
+                </Link>
+              </>
+            )}
+
+            {!isAuthenticated && (
+              <>
+                <Button asChild size="sm" variant="secondary">
+                  <Link to="/register">Register</Link>
+                </Button>
+                <Button asChild size="sm">
+                  <Link to="/login">Login</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>

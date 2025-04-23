@@ -16,19 +16,12 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request.headers.get("Cookie"));
-
   if (session.has("token")) {
-    // Redirect to the dashboard if they are already logged in
     return redirect("/dashboard");
   }
-
   return data(
     { error: session.get("error") },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    }
+    { headers: { "Set-Cookie": await commitSession(session) } }
   );
 }
 

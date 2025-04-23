@@ -16,3 +16,6 @@ export type AuthLoginResponseBody =
 
 export type AuthLoginResponseFailedBody =
   paths["/auth/login"]["post"]["responses"][400]["content"]["application/json"];
+
+export type AuthMeResponseBody =
+  paths["/auth/me"]["get"]["responses"][200]["content"]["application/json"];
