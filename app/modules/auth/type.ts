@@ -13,3 +13,6 @@ export type AuthLoginRequestBody = NonNullable<
 
 export type AuthLoginResponseBody =
   paths["/auth/login"]["post"]["responses"][200]["content"]["application/json"];
+
+export type AuthLoginResponseFailedBody =
+  paths["/auth/login"]["post"]["responses"][400]["content"]["application/json"];
