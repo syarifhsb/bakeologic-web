@@ -71,11 +71,11 @@ export function RegisterForm({
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="phone">Phone Number</Label>
+                  <Label htmlFor="phone-number">Phone Number</Label>
                   <Input
-                    id="phone"
+                    id="phone-number"
                     type="tel"
-                    name="phone"
+                    name="phone-number"
                     placeholder="+33-123-456-789"
                     required
                   />

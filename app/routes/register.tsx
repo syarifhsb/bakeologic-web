@@ -1,6 +1,11 @@
 import { Link, redirect } from "react-router";
 import { Logo } from "~/components/custom/logo";
 import { RegisterForm } from "~/components/custom/register-form";
+import { backendApiUrl } from "~/env";
+import type {
+  AuthRegisterRequestBody,
+  AuthRegisterResponseBody,
+} from "~/modules/auth/type";
 import type { Route } from "./+types/register";
 
 export function meta({}: Route.MetaArgs) {
@@ -10,21 +15,30 @@ export function meta({}: Route.MetaArgs) {
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
 
-  const registerUserData = {
+  const registerUserData: AuthRegisterRequestBody = {
     username: formData.get("username") as string,
     email: formData.get("email") as string,
     firstName: formData.get("first-name") as string,
     lastName: formData.get("last-name") as string,
-    phone: formData.get("phone") as string,
+    phoneNumber: formData.get("phone-number") as string,
     password: formData.get("password") as string,
   };
 
-  console.log({ registerUserData });
+  const response = await fetch(`${backendApiUrl}/auth/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(registerUserData),
+  });
+  if (!response.ok) {
+    return redirect("/register");
+  }
 
-  // Request to backend API
+  const registerResult: AuthRegisterResponseBody = await response.json();
+  if (!registerResult) {
+    return redirect("/register");
+  }
 
-  return null;
-  // return redirect("/login");
+  return redirect("/login");
 }
 
 export default function Login() {
