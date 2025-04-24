@@ -11,8 +11,9 @@ import {
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
 import type { MenuItems } from "~/modules/common/type";
-import { Button } from "../ui/button";
+import { Button } from "~/components/ui/button";
 import type { AuthMeResponseBody } from "~/modules/auth/type";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 
 export function Header({
   menuItems,
@@ -21,7 +22,11 @@ export function Header({
   menuItems: MenuItems;
   user?: AuthMeResponseBody;
 }) {
+  console.log(menuItems);
   const isAuthenticated = Boolean(user?.id);
+  const avatarUrl = user?.avatarUrl
+    ? user.avatarUrl
+    : "https://github.com/shadcn.png";
 
   return (
     <header className="mb-0 md:mb-7 border-b">
@@ -44,7 +49,7 @@ export function Header({
                         <li key={menuItem.to}>
                           <NavigationMenuLink asChild>
                             <Link
-                              to={`/products?category=${menuItem.to}`}
+                              to={menuItem.to}
                               className="block w-full p-2 rounded-md transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none"
                             >
                               {menuItem.name}
@@ -83,7 +88,9 @@ export function Header({
                   <ShoppingCartIcon />
                 </Link>
                 <Link to="/dashboard">
-                  <UserRound />
+                  <Avatar className="border">
+                    <AvatarImage src={avatarUrl} alt="avatar" />
+                  </Avatar>
                 </Link>
               </>
             )}
