@@ -22,9 +22,17 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
+import type { AuthMeResponseBody } from "~/modules/auth/type";
 import type { MenuItems } from "~/modules/common/type";
 
-export function MenuButton({ menuItems }: { menuItems: MenuItems }) {
+export function MenuButton({
+  menuItems,
+  user,
+}: {
+  menuItems: MenuItems;
+  user?: AuthMeResponseBody;
+}) {
+  const isAuthenticated = Boolean(user?.id);
   const [open, setOpen] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +42,6 @@ export function MenuButton({ menuItems }: { menuItems: MenuItems }) {
     if (searchQuery) {
       window.location.href = `/products?q=${searchQuery}`;
     }
-    // TODO: Keyboard not closed on mobile
   };
 
   return (
@@ -86,21 +93,34 @@ export function MenuButton({ menuItems }: { menuItems: MenuItems }) {
           <Form action="/products" onSubmit={handleSubmit}>
             <Input name="q" type="search" placeholder="Search" />
           </Form>
-          <DrawerFooter>
-            <div className="mx-auto space-x-4">
-              <DrawerClose asChild>
-                <Button asChild>
-                  <Link to="/about">Register</Link>
-                </Button>
-              </DrawerClose>
+          {!isAuthenticated && (
+            <DrawerFooter>
+              <div className="mx-auto space-x-4">
+                <DrawerClose asChild>
+                  <Button asChild variant={"secondary"}>
+                    <Link to="/register">Register</Link>
+                  </Button>
+                </DrawerClose>
+                <DrawerClose asChild>
+                  <Button asChild>
+                    <Link to="/login">Login</Link>
+                  </Button>
+                </DrawerClose>
+              </div>
+            </DrawerFooter>
+          )}
 
-              <DrawerClose asChild>
-                <Button asChild>
-                  <Link to="/about">Login</Link>
-                </Button>
-              </DrawerClose>
-            </div>
-          </DrawerFooter>
+          {isAuthenticated && (
+            <DrawerFooter>
+              <div className="mx-auto space-x-4">
+                <DrawerClose asChild>
+                  <Button asChild>
+                    <Link to="/logout">Logout</Link>
+                  </Button>
+                </DrawerClose>
+              </div>
+            </DrawerFooter>
+          )}
         </div>
       </DrawerContent>
     </Drawer>

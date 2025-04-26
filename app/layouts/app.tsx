@@ -5,10 +5,10 @@ import { Header } from "~/components/layout/header";
 import { MenuButton } from "~/components/layout/menu-button";
 import { Button } from "~/components/ui/button";
 import { backendApiUrl } from "~/env";
-import type { CategoriesJSON } from "~/modules/category/type";
-import type { Route } from "./+types/app";
-import { getSession } from "~/sessions.server";
 import type { AuthMeResponseBody } from "~/modules/auth/type";
+import type { CategoriesJSON } from "~/modules/category/type";
+import { getSession } from "~/sessions.server";
+import type { Route } from "./+types/app";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request.headers.get("Cookie"));
@@ -65,7 +65,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
           </Link>
         </Button>
 
-        <MenuButton menuItems={menuItems} />
+        <MenuButton menuItems={menuItems} user={user} />
       </div>
     </div>
   );
