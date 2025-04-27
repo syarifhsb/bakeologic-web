@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import pluralize from "pluralize";
 import { useForm } from "react-hook-form";
-import { Form } from "react-router";
+import { Form, redirect } from "react-router";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -11,6 +11,7 @@ import { formatPrice } from "~/lib/currency";
 import type { ProductJSON } from "~/modules/product/type";
 import { quantitySchema } from "~/schema/form";
 import type { Route } from "./+types/products-slug";
+import { getSession } from "~/sessions.server";
 
 export function meta({ data }: Route.MetaArgs) {
   return [{ title: `${data.name} - Bakeologic` }];
@@ -22,20 +23,23 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export async function action({ request }: Route.ActionArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const token = session.get("token");
+  if (!token) return redirect("/login");
+
   const formData = await request.formData();
+
+  const productId = String(formData.get("product-id"));
   const quantity = Number(formData.get("quantity"));
 
-  // const response = await fetch(`${backendApiUrl}/cart`, {
-  //   method: "POST",
-  //   headers: {
-  //     Authorization: `Bearer ${""}`,
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     productId: 1,
-  //     quantity: 1,
-  //   }),
-  // });
+  const response = await fetch(`${backendApiUrl}/cart`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${""}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ productId, quantity }),
+  });
 
   return null;
 }
@@ -76,15 +80,19 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
 
         <section className="flex gap-4 items-center">
           <Form method="post" className="flex gap-4 items-center">
-            <Label className="hidden">Quantity</Label>
-            <Input
-              name="quantity"
-              className="w-18"
-              type="number"
-              min={1}
-              max={product.stockQuantity}
-              defaultValue={1}
-            />
+            <input type="hidden" name="product-id" defaultValue={product.id} />
+
+            <div>
+              <Label className="hidden">Quantity</Label>
+              <Input
+                name="quantity"
+                className="w-18"
+                type="number"
+                min={1}
+                max={product.stockQuantity}
+                defaultValue={1}
+              />
+            </div>
             <Button type="submit">Add to cart</Button>
           </Form>
           <p>

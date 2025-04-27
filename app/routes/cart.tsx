@@ -9,7 +9,7 @@ import {
 } from "~/components/ui/card";
 import type { CartItemJSON, CartJSON } from "~/modules/cart/type";
 import { backendApiUrl } from "~/env";
-import { Link, redirect } from "react-router";
+import { href, Link, redirect } from "react-router";
 import { getSession } from "~/sessions.server";
 import ProductImage from "~/components/custom/product-image";
 import { formatPrice } from "~/lib/currency";
@@ -21,9 +21,7 @@ export function meta({}: Route.MetaArgs) {
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const token = session.get("token");
-  if (!token) {
-    return redirect("/login");
-  }
+  if (!token) return redirect("/login");
 
   const response = await fetch(`${backendApiUrl}/cart`, {
     method: "GET",
@@ -42,19 +40,26 @@ export default function Cart({ loaderData }: Route.ComponentProps) {
       <ul className="flex flex-col gap-4 w-[600px]">
         {cartItems.map((item) => {
           const slug = item.product.slug;
+          const to = href("/products/:slug", { slug });
 
           return (
             <li key={slug}>
               <Card className="px-6">
                 <div className="flex flex-row">
-                  <ProductImage
-                    image={item.product.images[0]}
-                    height={133}
-                    width={200}
-                  />
+                  <Link to={to}>
+                    <ProductImage
+                      image={item.product.images[0]}
+                      // `${imageUrl}-/preview/300x200/`
+                      // `${imageUrl}-/scale_crop/300x200/smart/`
+                      height={133}
+                      width={200}
+                    />
+                  </Link>
                   <div className="w-full">
                     <CardHeader>
-                      <CardTitle className="">{item.product.name}</CardTitle>
+                      <Link to={to}>
+                        <CardTitle className="">{item.product.name}</CardTitle>
+                      </Link>
                     </CardHeader>
                     <CardContent>
                       <div className="flex items-center justify-between">
