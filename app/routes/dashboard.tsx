@@ -2,7 +2,7 @@ import { getSession } from "~/sessions.server";
 import type { Route } from "./+types/dashboard";
 import { Form, redirect } from "react-router";
 import { backendApiUrl } from "~/env";
-import type { AuthMeResponseBody } from "~/modules/auth/type";
+import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
 import { Button } from "~/components/ui/button";
 
 export function meta({}: Route.MetaArgs) {
@@ -20,7 +20,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });
-  const user: AuthMeResponseBody = await response.json();
+  const user: AuthMeResponseSuccessBody = await response.json();
 
   return user;
 }

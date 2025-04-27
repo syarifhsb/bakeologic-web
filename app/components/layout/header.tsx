@@ -12,7 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
-import type { AuthMeResponseBody } from "~/modules/auth/type";
+import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
 import type { MenuItems } from "~/modules/common/type";
 
 export function Header({
@@ -20,7 +20,7 @@ export function Header({
   user,
 }: {
   menuItems: MenuItems;
-  user?: AuthMeResponseBody;
+  user?: AuthMeResponseSuccessBody;
 }) {
   const isAuthenticated = Boolean(user?.id);
   const avatarUrl = user?.avatarUrl

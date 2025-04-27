@@ -1,58 +1,79 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import pluralize from "pluralize";
-import { useForm } from "react-hook-form";
-import { Form, redirect } from "react-router";
-import { z } from "zod";
+import { data, Form, href, redirect } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { backendApiUrl } from "~/env";
 import { formatPrice } from "~/lib/currency";
+import type {
+  AddToCartResponseFailedBody,
+  AddToCartResponseSuccessBody,
+} from "~/modules/cart/type";
 import type { ProductJSON } from "~/modules/product/type";
-import { quantitySchema } from "~/schema/form";
+import { commitSession, getSession } from "~/sessions.server";
 import type { Route } from "./+types/products-slug";
-import { getSession } from "~/sessions.server";
 
 export function meta({ data }: Route.MetaArgs) {
-  return [{ title: `${data.name} - Bakeologic` }];
+  return [{ title: `${data.product.name} - Bakeologic` }];
 }
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader({ request, params }: Route.LoaderArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
   const response = await fetch(`${backendApiUrl}/products/${params.slug}`);
-  return (await response.json()) as ProductJSON;
+  const product: ProductJSON = await response.json();
+
+  return data(
+    {
+      product,
+      error: session.get("error"),
+    },
+    { headers: { "Set-Cookie": await commitSession(session) } }
+  );
 }
 
-export async function action({ request }: Route.ActionArgs) {
+export async function action({ request, params }: Route.ActionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const token = session.get("token");
   if (!token) return redirect("/login");
 
+  const productSlugUrl = href("/products/:slug", { slug: params.slug });
+
+  console.log({ productSlugUrl });
+
   const formData = await request.formData();
 
-  const productId = String(formData.get("product-id"));
-  const quantity = Number(formData.get("quantity"));
+  const body = {
+    productId: String(formData.get("product-id")),
+    quantity: Number(formData.get("quantity")),
+  };
+  console.log({ body });
 
-  const response = await fetch(`${backendApiUrl}/cart`, {
-    method: "POST",
+  const response = await fetch(`${backendApiUrl}/cart/items`, {
+    method: "PUT",
     headers: {
-      Authorization: `Bearer ${""}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ productId, quantity }),
+    body: JSON.stringify(body),
   });
 
-  return null;
+  if (!response.ok) {
+    const addToCartResultFailed: AddToCartResponseFailedBody =
+      await response.json();
+    session.flash("error", addToCartResultFailed.message);
+    return redirect(productSlugUrl, {
+      headers: { "Set-Cookie": await commitSession(session) },
+    });
+  }
+
+  const addToCartResult: AddToCartResponseSuccessBody = await response.json();
+  // console.log({ addToCartResult });
+
+  return redirect("/cart");
 }
 
 export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
-  const product = loaderData;
-
-  const form = useForm<z.infer<typeof quantitySchema>>({
-    resolver: zodResolver(quantitySchema),
-    defaultValues: {
-      quantity: 1,
-    },
-  });
+  const { product, error } = loaderData;
 
   const productImage = product.images[0] || {
     url: "https://placehold.co/300x200",
@@ -78,7 +99,7 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
           {formatPrice(product.price)}
         </h2>
 
-        <section className="flex gap-4 items-center">
+        <section className="space-y-4 items-center">
           <Form method="post" className="flex gap-4 items-center">
             <input type="hidden" name="product-id" defaultValue={product.id} />
 
@@ -95,6 +116,7 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
             </div>
             <Button type="submit">Add to cart</Button>
           </Form>
+          {error && <p>{error}</p>}
           <p>
             {product.stockQuantity} {pluralize("item", product.stockQuantity)}{" "}
             in stock

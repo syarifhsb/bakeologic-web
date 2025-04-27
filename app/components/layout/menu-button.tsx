@@ -22,7 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
-import type { AuthMeResponseBody } from "~/modules/auth/type";
+import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
 import type { MenuItems } from "~/modules/common/type";
 
 export function MenuButton({
@@ -30,7 +30,7 @@ export function MenuButton({
   user,
 }: {
   menuItems: MenuItems;
-  user?: AuthMeResponseBody;
+  user?: AuthMeResponseSuccessBody;
 }) {
   const isAuthenticated = Boolean(user?.id);
   const [open, setOpen] = useState(false);

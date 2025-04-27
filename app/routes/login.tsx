@@ -4,7 +4,7 @@ import { Logo } from "~/components/custom/logo";
 import type { Route } from "./+types/login";
 import type {
   AuthLoginRequestBody,
-  AuthLoginResponseBody,
+  AuthLoginResponseSuccessBody,
   AuthLoginResponseFailedBody,
 } from "~/modules/auth/type";
 import { backendApiUrl } from "~/env";
@@ -17,9 +17,8 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request.headers.get("Cookie"));
-  if (session.has("token")) {
-    return redirect("/dashboard");
-  }
+  if (session.has("token")) return redirect("/dashboard");
+
   return data(
     { error: session.get("error") },
     { headers: { "Set-Cookie": await commitSession(session) } }
@@ -61,7 +60,7 @@ export async function action({ request }: Route.ActionArgs) {
     });
   }
 
-  const loginResult: AuthLoginResponseBody = await response.json();
+  const loginResult: AuthLoginResponseSuccessBody = await response.json();
 
   session.set("token", loginResult.token);
 

@@ -5,7 +5,7 @@ import { Header } from "~/components/layout/header";
 import { MenuButton } from "~/components/layout/menu-button";
 import { Button } from "~/components/ui/button";
 import { backendApiUrl } from "~/env";
-import type { AuthMeResponseBody } from "~/modules/auth/type";
+import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
 import type { CategoriesJSON } from "~/modules/category/type";
 import { getSession } from "~/sessions.server";
 import type { Route } from "./+types/app";
@@ -27,7 +27,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     return { categories };
   }
 
-  const user: AuthMeResponseBody = await authMeResponse.json();
+  const user: AuthMeResponseSuccessBody = await authMeResponse.json();
   return { categories, user };
 }
 
