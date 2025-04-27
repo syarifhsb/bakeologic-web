@@ -9,6 +9,7 @@ import type {
 } from "~/modules/auth/type";
 import { backendApiUrl } from "~/env";
 import { commitSession, getSession } from "~/sessions.server";
+import type { ZodError } from "zod";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Login to Bakeologic" }];
@@ -44,7 +45,17 @@ export async function action({ request }: Route.ActionArgs) {
   if (!response.ok) {
     const loginResultFailed: AuthLoginResponseFailedBody =
       await response.json();
-    session.flash("error", loginResultFailed.message);
+
+    if ((loginResultFailed.error as ZodError)?.name === "ZodError") {
+      const errorMessage = (loginResultFailed.error as ZodError).issues
+        .map((issue) => issue.message)
+        .join(", ");
+
+      session.flash("error", errorMessage);
+    } else {
+      session.flash("error", loginResultFailed.message);
+    }
+
     return redirect("/login", {
       headers: { "Set-Cookie": await commitSession(session) },
     });
