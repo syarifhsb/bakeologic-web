@@ -1,18 +1,10 @@
+import { redirect } from "react-router";
+import { CartItem } from "~/components/custom/cart-item";
 import OrderSummary from "~/components/custom/order-summary";
-import type { Route } from "./+types/cart";
-import {
-  Card,
-  CardDescription,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
-import type { CartItemJSON, CartJSON } from "~/modules/cart/type";
 import { backendApiUrl } from "~/env";
-import { href, Link, redirect } from "react-router";
+import type { CartItemJSON, CartJSON } from "~/modules/cart/type";
 import { getSession } from "~/sessions.server";
-import ProductImage from "~/components/custom/product-image";
-import { formatPrice } from "~/lib/currency";
+import type { Route } from "./+types/cart";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Cart - Bakeologic" }];
@@ -39,44 +31,7 @@ export default function Cart({ loaderData }: Route.ComponentProps) {
     <div className="flex items-center justify-between w-full max-w-[1200px] mx-auto">
       <ul className="flex flex-col gap-4 w-[600px]">
         {cartItems.map((item) => {
-          const slug = item.product.slug;
-          const to = href("/products/:slug", { slug });
-
-          return (
-            <li key={slug}>
-              <Card className="px-6">
-                <div className="flex flex-row">
-                  <Link to={to}>
-                    <ProductImage
-                      image={item.product.images[0]}
-                      height={133}
-                      width={200}
-                      className="rounded-sm"
-                    />
-                  </Link>
-                  <div className="w-full">
-                    <CardHeader>
-                      <Link to={to}>
-                        <CardTitle className="">{item.product.name}</CardTitle>
-                      </Link>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">Quantity</span>
-                        <span className="text-sm">{item.quantity}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">Price</span>
-                        <span className="text-sm">
-                          {formatPrice(item.product.price)}
-                        </span>
-                      </div>
-                    </CardContent>
-                  </div>
-                </div>
-              </Card>
-            </li>
-          );
+          return CartItem({ item });
         })}
       </ul>
       <OrderSummary />

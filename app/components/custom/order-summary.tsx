@@ -1,3 +1,4 @@
+import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,11 +6,14 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { Button } from "~/components/ui/button";
+import { cn } from "~/lib/cn";
 
-export default function OrderSummary() {
+export default function OrderSummary({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"div">) {
   return (
-    <Card className="min-w-[400px]">
+    <Card className={cn("min-w-[300px]", className)} {...props}>
       <CardHeader>
         <CardTitle className="font-bold text-xl">Order Summary</CardTitle>
       </CardHeader>
