@@ -49,10 +49,9 @@ export default function Cart({ loaderData }: Route.ComponentProps) {
                   <Link to={to}>
                     <ProductImage
                       image={item.product.images[0]}
-                      // `${imageUrl}-/preview/300x200/`
-                      // `${imageUrl}-/scale_crop/300x200/smart/`
                       height={133}
                       width={200}
+                      className="rounded-sm"
                     />
                   </Link>
                   <div className="w-full">

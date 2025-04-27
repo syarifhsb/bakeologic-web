@@ -1,4 +1,5 @@
 import type { ProductImageJSON } from "~/modules/product/type";
+import { cn } from "~/lib/cn";
 
 const defaultImage = {
   url: "https://placehold.co/300x200",
@@ -7,26 +8,25 @@ const defaultImage = {
 
 export default function ProductImage({
   image,
-  height,
-  width,
+  height = 200,
+  width = 300,
+  className,
   ...props
-}: React.ComponentProps<"div"> & {
+}: React.ComponentProps<"img"> & {
   image: ProductImageJSON | undefined;
   height?: number;
   width?: number;
 }) {
   const imageValidated = image ? image : defaultImage;
-  const heightValidated = height || 217;
-  const widthValidated = width || 325;
 
   return (
-    <div className="relative w-full h-full" {...props}>
-      <img
-        src={imageValidated.url}
-        alt={imageValidated.altText}
-        height={heightValidated}
-        width={widthValidated}
-      />
-    </div>
+    <img
+      src={`${imageValidated.url}-/scale_crop/${width}x${height}/smart/`}
+      alt={imageValidated.altText}
+      height={height}
+      width={width}
+      className={cn("relative w-full h-full", className)}
+      {...props}
+    />
   );
 }
