@@ -25,8 +25,6 @@ export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
   const quantity = Number(formData.get("quantity"));
 
-  console.info({ quantity });
-
   // const response = await fetch(`${backendApiUrl}/cart`, {
   //   method: "POST",
   //   headers: {

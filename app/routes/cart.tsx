@@ -12,6 +12,7 @@ import { backendApiUrl } from "~/env";
 import { Link, redirect } from "react-router";
 import { getSession } from "~/sessions.server";
 import ProductImage from "~/components/custom/product-image";
+import { formatPrice } from "~/lib/currency";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Cart - Bakeologic" }];
@@ -62,7 +63,9 @@ export default function Cart({ loaderData }: Route.ComponentProps) {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm">Price</span>
-                        <span className="text-sm">{item.product.price}</span>
+                        <span className="text-sm">
+                          {formatPrice(item.product.price)}
+                        </span>
                       </div>
                     </CardContent>
                   </div>
