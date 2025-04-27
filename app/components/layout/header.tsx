@@ -3,6 +3,13 @@ import { Form, Link } from "react-router";
 import { Logo } from "~/components/custom/logo";
 import { Avatar, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
 import {
   NavigationMenu,
@@ -86,11 +93,22 @@ export function Header({
                 <Link to="/cart">
                   <ShoppingCartIcon />
                 </Link>
-                <Link to="/dashboard">
-                  <Avatar className="border">
-                    <AvatarImage src={avatarUrl} alt="avatar" />
-                  </Avatar>
-                </Link>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="cursor-pointer">
+                    <Avatar className="border">
+                      <AvatarImage src={avatarUrl} alt="avatar" />
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard">Dashboard</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/logout">Logout</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </>
             )}
 

@@ -1,21 +1,20 @@
-import { getSession } from "~/sessions.server";
-import type { Route } from "./+types/dashboard";
+import { useEffect, useState } from "react";
 import { Form, redirect, useActionData, useNavigation } from "react-router";
-import { backendApiUrl } from "~/env";
-import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
-import { Avatar, AvatarImage, AvatarFallback } from "~/components/ui/avatar";
-import { useEffect, useState } from "react";
 import { Label } from "~/components/ui/label";
+import { backendApiUrl } from "~/env";
+import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
+import { getSession } from "~/sessions.server";
+import type { Route } from "./+types/dashboard";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Dashboard - Bakeologic" }];
@@ -257,13 +256,6 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
               </div>
             )}
           </CardContent>
-          <CardFooter className="border-t flex justify-center">
-            <Form method="post" action="/logout">
-              <Button type="submit" variant="destructive">
-                Logout
-              </Button>
-            </Form>
-          </CardFooter>
         </Card>
       </div>
     </div>
