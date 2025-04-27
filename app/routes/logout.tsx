@@ -1,5 +1,5 @@
 import { Form, Link, redirect } from "react-router";
-import { getSession, destroySession } from "../sessions.server";
+import { getSession, destroySession } from "~/sessions.server";
 import type { Route } from "./+types/logout";
 import { Button } from "~/components/ui/button";
 

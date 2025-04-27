@@ -22,7 +22,6 @@ export function Header({
   menuItems: MenuItems;
   user?: AuthMeResponseBody;
 }) {
-  console.log(menuItems);
   const isAuthenticated = Boolean(user?.id);
   const avatarUrl = user?.avatarUrl
     ? user.avatarUrl

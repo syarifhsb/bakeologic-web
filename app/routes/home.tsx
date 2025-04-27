@@ -1,10 +1,9 @@
-import type { Route } from "./+types/home";
-
+import { Link } from "react-router";
 import MainImage from "~/assets/home.jpeg";
+import ProductCard from "~/components/custom/product-card";
 import { backendApiUrl } from "~/env";
 import type { ProductsJSON } from "~/modules/product/type";
-import { Link } from "react-router";
-import ProductCard from "~/components/custom/product-card";
+import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [

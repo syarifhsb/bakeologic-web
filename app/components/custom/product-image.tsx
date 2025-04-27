@@ -5,21 +5,27 @@ const defaultImage = {
   altText: "Placeholder",
 };
 
-export default async function ProductImage({
+export default function ProductImage({
   image,
+  height,
+  width,
   ...props
 }: React.ComponentProps<"div"> & {
   image: ProductImageJSON | undefined;
+  height?: number;
+  width?: number;
 }) {
   const imageValidated = image ? image : defaultImage;
+  const heightValidated = height || 217;
+  const widthValidated = width || 325;
 
   return (
     <div className="relative w-full h-full" {...props}>
       <img
         src={imageValidated.url}
         alt={imageValidated.altText}
-        height={217}
-        width={325}
+        height={heightValidated}
+        width={widthValidated}
       />
     </div>
   );
