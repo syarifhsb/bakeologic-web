@@ -1,4 +1,5 @@
 import { cn } from "~/lib/cn";
+import { formatPrice } from "~/lib/currency";
 
 import { Card, CardContent } from "~/components/ui/card";
 import type { ProductJSON } from "~/modules/product/type";
@@ -30,12 +31,7 @@ export default function ProductCard({
           <h2 className={cn("text-xl", borderClass)}>{product.name}</h2>
           {variant !== "featured" && (
             <div className="flex flex-row justify-between items-center">
-              <span className="text-xl">
-                {Number(product.price).toLocaleString("fr-FR", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }) + " €"}
-              </span>
+              <span className="text-xl">{formatPrice(product.price)}</span>
               <span className="text-sm">{product.stockQuantity} left</span>
             </div>
           )}

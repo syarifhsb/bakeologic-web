@@ -7,6 +7,7 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { backendApiUrl } from "~/env";
+import { formatPrice } from "~/lib/currency";
 import type { ProductJSON } from "~/modules/product/type";
 import { quantitySchema } from "~/schema/form";
 import type { Route } from "./+types/products-slug";
@@ -72,10 +73,7 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
         <p>{product.description}</p>
 
         <h2 className="text-xl font-medium text-accent-foreground">
-          {Number(product.price).toLocaleString("fr-FR", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }) + " €"}
+          {formatPrice(product.price)}
         </h2>
 
         <section className="flex gap-4 items-center">
