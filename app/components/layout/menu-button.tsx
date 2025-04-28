@@ -24,6 +24,16 @@ import {
 import { Input } from "~/components/ui/input";
 import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
 import type { MenuItems } from "~/modules/common/type";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "~/components/ui/dialog";
+import React from "react";
 
 export function MenuButton({
   menuItems,
@@ -33,19 +43,11 @@ export function MenuButton({
   user?: AuthMeResponseSuccessBody;
 }) {
   const isAuthenticated = Boolean(user?.id);
-  const [open, setOpen] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setOpen(false);
-    const searchQuery = event.currentTarget.q.value;
-    if (searchQuery) {
-      window.location.href = `/products?q=${searchQuery}`;
-    }
-  };
+  const [showLogoutDialog, setShowLogoutDialog] = React.useState(false);
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer>
       <DrawerTrigger asChild>
         <Button
           className="h-10 bg-background text-foreground border-none shadow-none"
@@ -63,7 +65,7 @@ export function MenuButton({
         <div className="flex flex-col items-center justify-center my-4 gap-y-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant={"ghost"} className="cursor-pointer">
+              <Button variant="ghost" className="cursor-pointer">
                 Products
               </Button>
             </DropdownMenuTrigger>
@@ -90,36 +92,63 @@ export function MenuButton({
               <Link to="/about">About</Link>
             </Button>
           </DrawerClose>
-          <Form action="/products" onSubmit={handleSubmit}>
+          <Form action="/products">
             <Input name="q" type="search" placeholder="Search" />
           </Form>
+
           {!isAuthenticated && (
-            <DrawerFooter>
-              <div className="mx-auto space-x-4">
-                <DrawerClose asChild>
-                  <Button asChild variant={"secondary"}>
-                    <Link to="/register">Register</Link>
-                  </Button>
-                </DrawerClose>
-                <DrawerClose asChild>
-                  <Button asChild>
-                    <Link to="/login">Login</Link>
-                  </Button>
-                </DrawerClose>
-              </div>
-            </DrawerFooter>
+            <>
+              <DrawerFooter>
+                <div className="mx-auto space-x-4">
+                  <DrawerClose asChild>
+                    <Button asChild variant={"secondary"}>
+                      <Link to="/register">Register</Link>
+                    </Button>
+                  </DrawerClose>
+                  <DrawerClose asChild>
+                    <Button asChild>
+                      <Link to="/login">Login</Link>
+                    </Button>
+                  </DrawerClose>
+                </div>
+              </DrawerFooter>
+            </>
           )}
 
           {isAuthenticated && (
-            <DrawerFooter>
-              <div className="mx-auto space-x-4">
-                <DrawerClose asChild>
-                  <Button asChild>
-                    <Link to="/logout">Logout</Link>
+            <>
+              <DrawerFooter>
+                <div className="mx-auto space-x-4">
+                  <Button onClick={() => setShowLogoutDialog(true)}>
+                    Logout
                   </Button>
-                </DrawerClose>
-              </div>
-            </DrawerFooter>
+                </div>
+              </DrawerFooter>
+
+              <Dialog
+                open={showLogoutDialog}
+                onOpenChange={setShowLogoutDialog}
+              >
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Logout</DialogTitle>
+                    <DialogDescription>
+                      Are you sure you want to logout?
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button variant="secondary">Cancel</Button>
+                    </DialogClose>
+                    <DialogClose asChild>
+                      <Form method="post" action="/logout">
+                        <Button type="submit">Logout</Button>
+                      </Form>
+                    </DialogClose>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </>
           )}
         </div>
       </DrawerContent>

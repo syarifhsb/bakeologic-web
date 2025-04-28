@@ -38,8 +38,6 @@ export async function action({ request, params }: Route.ActionArgs) {
 
   const productSlugUrl = href("/products/:slug", { slug: params.slug });
 
-  console.log({ productSlugUrl });
-
   const formData = await request.formData();
 
   const body = {

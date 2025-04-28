@@ -2,6 +2,16 @@ import { Form, Link, redirect } from "react-router";
 import { Button } from "~/components/ui/button";
 import { destroySession, getSession } from "~/sessions.server";
 import type { Route } from "./+types/logout";
+import { Card } from "~/components/ui/card";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "~/components/ui/dialog";
 
 export async function action({ request }: Route.ActionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
@@ -13,14 +23,27 @@ export async function action({ request }: Route.ActionArgs) {
 }
 export default function LogoutRoute() {
   return (
-    <>
-      <p>Are you sure you want to log out?</p>
-
-      <Form method="post">
-        <Button type="submit">Logout</Button>
-      </Form>
-
-      <Link to="/">Never mind</Link>
-    </>
+    <Dialog open={true}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Logout</DialogTitle>
+          <DialogDescription>
+            Are you sure you want to logout?
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Form action="/">
+              <Button variant="secondary">Cancel</Button>
+            </Form>
+          </DialogClose>
+          <DialogClose asChild>
+            <Form method="post" action="/logout">
+              <Button type="submit">Logout</Button>
+            </Form>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
