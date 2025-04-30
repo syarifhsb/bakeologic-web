@@ -2,7 +2,6 @@ import { Form, Link, redirect } from "react-router";
 import { Button } from "~/components/ui/button";
 import { destroySession, getSession } from "~/sessions.server";
 import type { Route } from "./+types/logout";
-import { Card } from "~/components/ui/card";
 import {
   Dialog,
   DialogClose,
