@@ -8,7 +8,7 @@ import ProductImage from "./product-image";
 
 type productCardVariant = "default" | "featured";
 
-export default function ProductCard({
+export function ProductCard({
   product,
   variant = "default",
   ...props
