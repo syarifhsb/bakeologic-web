@@ -1,8 +1,8 @@
 import { Link } from "react-router";
-import type { Route } from "./+types/products";
+import { ProductCard } from "~/components/custom/product-card";
 import { backendApiUrl } from "~/env";
-import type { ProductsJSON, ProductJSON } from "~/modules/product/type";
-import ProductCard from "~/components/custom/product-card";
+import type { ProductJSON, ProductsJSON } from "~/modules/product/type";
+import type { Route } from "./+types/products";
 
 export function meta({}: Route.MetaArgs) {
   return [

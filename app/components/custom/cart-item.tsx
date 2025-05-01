@@ -1,5 +1,5 @@
 import { href, Link } from "react-router";
-import ProductImage from "~/components/custom/product-image";
+import { ProductImage } from "~/components/custom/product-image";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { cn } from "~/lib/cn";
 import { formatPrice } from "~/lib/currency";
