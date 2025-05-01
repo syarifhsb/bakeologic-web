@@ -8,7 +8,7 @@ import {
 } from "~/components/ui/card";
 import { cn } from "~/lib/cn";
 
-export default function OrderSummary({
+export function OrderSummary({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {

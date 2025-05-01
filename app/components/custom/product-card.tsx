@@ -1,10 +1,8 @@
 import { cn } from "~/lib/cn";
 import { formatPrice } from "~/lib/currency";
-
 import { Card, CardContent } from "~/components/ui/card";
 import type { ProductJSON } from "~/modules/product/type";
-
-import ProductImage from "./product-image";
+import { ProductImage } from "~/components/custom/product-image";
 
 type productCardVariant = "default" | "featured";
 

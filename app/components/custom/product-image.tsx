@@ -6,7 +6,7 @@ const defaultImage = {
   altText: "Placeholder",
 };
 
-export default function ProductImage({
+export function ProductImage({
   image,
   height = 200,
   width = 300,

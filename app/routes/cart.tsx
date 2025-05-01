@@ -1,6 +1,6 @@
 import { redirect } from "react-router";
 import { CartItem } from "~/components/custom/cart-item";
-import OrderSummary from "~/components/custom/order-summary";
+import { OrderSummary } from "~/components/custom/order-summary";
 import { backendApiUrl } from "~/env";
 import type { CartItemJSON, CartJSON } from "~/modules/cart/type";
 import { getSession } from "~/sessions.server";
