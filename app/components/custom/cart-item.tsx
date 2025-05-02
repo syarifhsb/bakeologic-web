@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { cn } from "~/lib/cn";
 import { formatPrice } from "~/lib/currency";
 import type { CartItemJSON } from "~/modules/cart/type";
+import { Input } from "~/components/ui/input";
 
 export function CartItem({
   item,
@@ -33,14 +34,13 @@ export function CartItem({
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
-                <span className="text-sm">Quantity</span>
-                <span className="text-sm">{item.quantity}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm">Price</span>
                 <span className="text-sm">
                   {formatPrice(item.product.price)}
                 </span>
+                <span>{item.quantity}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm"></span>
               </div>
             </CardContent>
           </div>

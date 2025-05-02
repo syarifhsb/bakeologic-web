@@ -30,14 +30,17 @@ import {
   NavigationMenuTrigger,
 } from "~/components/ui/navigation-menu";
 import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
+import type { CartJSON } from "~/modules/cart/type";
 import type { MenuItems } from "~/modules/common/type";
 
 export function Header({
   menuItems,
   user,
+  cart,
 }: {
   menuItems: MenuItems;
   user?: AuthMeResponseSuccessBody;
+  cart?: CartJSON;
 }) {
   const isAuthenticated = Boolean(user?.id);
   const avatarUrl = user?.avatarUrl
@@ -102,8 +105,11 @@ export function Header({
 
             {isAuthenticated && (
               <>
-                <Link to="/cart">
+                <Link to="/cart" className="flex flex-row items-center gap-x-1">
                   <ShoppingCartIcon />
+                  {cart && cart.totalQuantity > 0
+                    ? ` : ${cart?.totalQuantity}`
+                    : ""}
                 </Link>
                 <DropdownMenu>
                   <DropdownMenuTrigger className="cursor-pointer">
