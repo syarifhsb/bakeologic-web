@@ -50,7 +50,7 @@ export function Header({
   const [showLogoutDialog, setShowLogoutDialog] = React.useState(false);
 
   return (
-    <header className="mb-0 md:mb-7 border-b">
+    <header className="border-b">
       <div className="flex flex-row mx-7 my-5">
         <div className="flex flex-row items-center justify-center md:justify-between w-full">
           <Link to="/">

@@ -5,6 +5,7 @@ import {
   layout,
 } from "@react-router/dev/routes";
 
+// There's root loader to get all the user-relevant data
 export default [
   layout("layouts/app.tsx", [
     index("routes/home.tsx"),
@@ -14,11 +15,9 @@ export default [
     route("faq", "routes/faq.tsx"),
     route("contact", "routes/contact.tsx"),
     route("shops", "routes/shops.tsx"),
-    route("cart", "routes/cart.tsx"),
 
-    // ✅ TODO
     route("dashboard", "routes/dashboard.tsx"),
-    // route("cart", "routes/cart.tsx"),
+    route("cart", "routes/cart.tsx"),
   ]),
 
   route("register", "routes/register.tsx"),

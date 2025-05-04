@@ -1,44 +1,29 @@
 import { ShoppingCartIcon } from "lucide-react";
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useRouteLoaderData } from "react-router";
 import { Footer } from "~/components/layout/footer";
 import { Header } from "~/components/layout/header";
 import { MenuButton } from "~/components/layout/menu-button";
 import { Button } from "~/components/ui/button";
-import { backendApiUrl } from "~/env";
-import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
-import type { CategoriesJSON } from "~/modules/category/type";
-import { getSession } from "~/sessions.server";
+import type { loader as rootLoader } from "~/root";
 import type { Route } from "./+types/app";
-import type { CartJSON } from "~/modules/cart/type";
+import { backendApiUrl } from "~/env";
+import type { CategoriesJSON } from "~/modules/category/type";
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const session = await getSession(request.headers.get("Cookie"));
-  const token = session.get("token");
-
-  const [categoriesResponse, authMeResponse, cartResponse] = await Promise.all([
-    fetch(`${backendApiUrl}/categories`),
-    fetch(`${backendApiUrl}/auth/me`, {
-      method: "GET",
-      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
-    }),
-    fetch(`${backendApiUrl}/cart`, {
-      method: "GET",
-      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
-    }),
-  ]);
-
+export async function loader() {
+  const categoriesResponse = await fetch(`${backendApiUrl}/categories`);
+  if (!categoriesResponse.ok) return { categories: [] };
   const categories: CategoriesJSON = await categoriesResponse.json();
-  if (!authMeResponse.ok) {
-    return { categories };
-  }
-
-  const user: AuthMeResponseSuccessBody = await authMeResponse.json();
-  const cart: CartJSON = await cartResponse.json();
-  return { categories, user, cart };
+  return { categories };
 }
 
-export default function Layout({ loaderData }: Route.ComponentProps) {
-  const { categories, user, cart } = loaderData;
+export default function LayoutApp({ loaderData }: Route.ComponentProps) {
+  // from layouts/app loader
+  const { categories } = loaderData;
+
+  // from root loader
+  const rootLoaderData = useRouteLoaderData<typeof rootLoader>("root");
+  const user = rootLoaderData?.user || undefined;
+  const cart = rootLoaderData?.cart || undefined;
 
   const menuItems = [
     {
@@ -57,7 +42,7 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
     <div className="flex flex-col min-h-screen">
       <Header menuItems={menuItems} user={user} cart={cart} />
 
-      <main id="main" className="grow flex flex-col items-center">
+      <main id="main" className="flex flex-col items-center">
         <Outlet />
       </main>
 
