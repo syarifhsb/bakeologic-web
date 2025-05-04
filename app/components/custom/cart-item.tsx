@@ -1,10 +1,12 @@
-import { href, Link } from "react-router";
+import { Trash2Icon } from "lucide-react";
+import { Form, href, Link } from "react-router";
 import { ProductImage } from "~/components/custom/product-image";
+import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { Input } from "~/components/ui/input";
 import { cn } from "~/lib/cn";
 import { formatPrice } from "~/lib/currency";
 import type { CartItemJSON } from "~/modules/cart/type";
-import { Input } from "~/components/ui/input";
 
 export function CartItem({
   item,
@@ -27,20 +29,41 @@ export function CartItem({
             />
           </Link>
           <div className="w-full">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <Link to={to}>
-                <CardTitle className="">{item.product.name}</CardTitle>
+                <CardTitle className="font-bold">{item.product.name}</CardTitle>
               </Link>
+              <Form method="delete" action="/cart">
+                <Button variant="ghost" className="hover:cursor-pointer">
+                  <Trash2Icon />
+                </Button>
+              </Form>
             </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between">
+            <CardContent className="mt-2">
+              <div className="flex flex-col items-start justify-between space-y-2">
                 <span className="text-sm">
                   {formatPrice(item.product.price)}
                 </span>
-                <span>{item.quantity}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm"></span>
+                <div className="flex justify-between w-full">
+                  <div className="flex flex-col">
+                    <span>Quantity</span>
+                    <Form method="put">
+                      <input
+                        type="hidden"
+                        name="product-id"
+                        defaultValue={item.product.id}
+                      />
+                      <Input
+                        name="quantity"
+                        type="number"
+                        min={1}
+                        max={item.product.stockQuantity}
+                        defaultValue={item.quantity}
+                      />
+                    </Form>
+                  </div>
+                  <span>Subtotal: {formatPrice(item.totalPrice)}</span>
+                </div>
               </div>
             </CardContent>
           </div>

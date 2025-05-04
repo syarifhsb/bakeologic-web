@@ -44,7 +44,6 @@ export async function action({ request, params }: Route.ActionArgs) {
     productId: String(formData.get("product-id")),
     quantity: Number(formData.get("quantity")),
   };
-  console.log({ body });
 
   const response = await fetch(`${backendApiUrl}/cart/items`, {
     method: "PUT",

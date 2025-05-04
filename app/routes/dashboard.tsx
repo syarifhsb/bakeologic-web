@@ -52,7 +52,6 @@ export async function action({ request }: Route.ActionArgs) {
     lastName: formData.get("lastName"),
     avatarUrl: formData.get("avatarUrl"),
   };
-  console.log(updatedUser);
 
   try {
     const response = await fetch(`${backendApiUrl}/users/me`, {
