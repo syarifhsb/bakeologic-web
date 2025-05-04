@@ -25,7 +25,7 @@ export function ProductImage({
       alt={imageValidated.altText}
       height={height}
       width={width}
-      className={cn("relative w-full h-full", className)}
+      className={cn("relative w-full", className)}
       {...props}
     />
   );

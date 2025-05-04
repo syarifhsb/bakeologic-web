@@ -23,8 +23,8 @@ export function CartItem({
           <Link to={to}>
             <ProductImage
               image={item.product.images[0]}
-              height={133}
-              width={200}
+              height={100}
+              width={150}
               className="rounded-sm"
             />
           </Link>
@@ -36,7 +36,11 @@ export function CartItem({
 
               <Form method="delete" action="/cart">
                 <input type="hidden" name="item-id" defaultValue={item.id} />
-                <Button variant="ghost" className="hover:cursor-pointer">
+                <Button
+                  variant="ghost"
+                  className="hover:cursor-pointer"
+                  size="sm"
+                >
                   <Trash2Icon />
                 </Button>
               </Form>
