@@ -42,7 +42,7 @@ export default function LayoutApp({ loaderData }: Route.ComponentProps) {
     <div className="flex flex-col min-h-screen">
       <Header menuItems={menuItems} user={user} cart={cart} />
 
-      <main id="main" className="flex flex-col items-center">
+      <main id="main" className="grow flex flex-col items-center">
         <Outlet />
       </main>
 
