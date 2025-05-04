@@ -9,6 +9,9 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     plugins: { js },
     extends: ["js/recommended"],
+    rules: {
+      "no-empty-pattern": "off",
+    },
   },
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],

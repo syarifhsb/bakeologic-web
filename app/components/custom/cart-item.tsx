@@ -33,12 +33,15 @@ export function CartItem({
               <Link to={to}>
                 <CardTitle className="font-bold">{item.product.name}</CardTitle>
               </Link>
+
               <Form method="delete" action="/cart">
+                <input type="hidden" name="item-id" defaultValue={item.id} />
                 <Button variant="ghost" className="hover:cursor-pointer">
                   <Trash2Icon />
                 </Button>
               </Form>
             </CardHeader>
+
             <CardContent className="mt-2">
               <div className="flex flex-col items-start justify-between space-y-2">
                 <span className="text-sm">
@@ -47,11 +50,12 @@ export function CartItem({
                 <div className="flex justify-between w-full">
                   <div className="flex flex-col">
                     <span>Quantity</span>
-                    <Form method="put">
+
+                    <Form method="put" action="/cart">
                       <input
                         type="hidden"
-                        name="product-id"
-                        defaultValue={item.product.id}
+                        name="item-id"
+                        defaultValue={item.id}
                       />
                       <Input
                         name="quantity"
