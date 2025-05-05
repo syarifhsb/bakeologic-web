@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { Trash2Icon } from "lucide-react";
-import { Form, href, Link } from "react-router";
+import { Form, href, Link, useSubmit } from "react-router";
 import { ProductImage } from "~/components/custom/product-image";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
@@ -7,6 +8,7 @@ import { Input } from "~/components/ui/input";
 import { cn } from "~/lib/cn";
 import { formatPrice } from "~/lib/currency";
 import type { CartItemJSON } from "~/modules/cart/type";
+import { useDebounce } from "use-debounce";
 
 export function CartItem({
   item,
@@ -15,19 +17,39 @@ export function CartItem({
 }: React.ComponentProps<"li"> & { item: CartItemJSON }) {
   const slug = item.product.slug;
   const to = href("/products/:slug", { slug });
+  const submit = useSubmit();
+
+  const [quantity, setQuantity] = useState(item.quantity);
+  const [debouncedQuantity] = useDebounce(quantity, 500);
+
+  function handleQuantityChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setQuantity(Number(event.target.value));
+  }
+
+  useEffect(() => {
+    if (debouncedQuantity !== item.quantity) {
+      const formData = new FormData();
+      formData.append("quantity", String(debouncedQuantity));
+      formData.append("item-id", item.id);
+
+      submit(formData, { method: "patch", action: "/cart" });
+    }
+  }, [debouncedQuantity, item.quantity, submit]);
 
   return (
     <li key={slug} className={cn("", className)} {...props}>
       <Card className="px-6">
         <div className="flex flex-row">
-          <Link to={to}>
-            <ProductImage
-              image={item.product.images[0]}
-              height={100}
-              width={150}
-              className="rounded-sm"
-            />
-          </Link>
+          <div>
+            <Link to={to}>
+              <ProductImage
+                image={item.product.images[0]}
+                height={100}
+                width={150}
+                className="rounded-sm"
+              />
+            </Link>
+          </div>
           <div className="w-full">
             <CardHeader className="flex flex-row items-center justify-between">
               <Link to={to}>
@@ -67,6 +89,7 @@ export function CartItem({
                         min={1}
                         max={item.product.stockQuantity}
                         defaultValue={item.quantity}
+                        onChange={handleQuantityChange}
                       />
                     </Form>
                   </div>

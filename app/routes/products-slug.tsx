@@ -5,10 +5,7 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { backendApiUrl } from "~/env";
 import { formatPrice } from "~/lib/currency";
-import type {
-  AddToCartResponseFailedBody,
-  AddToCartResponseSuccessBody,
-} from "~/modules/cart/type";
+import type { AddToCartResponseFailedBody } from "~/modules/cart/type";
 import type { ProductJSON } from "~/modules/product/type";
 import { commitSession, getSession } from "~/sessions.server";
 import type { Route } from "./+types/products-slug";
@@ -62,9 +59,6 @@ export async function action({ request, params }: Route.ActionArgs) {
       headers: { "Set-Cookie": await commitSession(session) },
     });
   }
-
-  const addToCartResult: AddToCartResponseSuccessBody = await response.json();
-  // console.log({ addToCartResult });
 
   return redirect("/cart");
 }

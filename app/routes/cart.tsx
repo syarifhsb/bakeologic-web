@@ -45,16 +45,23 @@ export async function action({ request }: Route.ActionArgs) {
     }
   }
 
-  if (request.method === "PUT") {
+  if (request.method === "PATCH") {
+    const itemId = String(formData.get("item-id"));
+
     const body = {
-      itemId: String(formData.get("item-id")),
       quantity: Number(formData.get("quantity")),
     };
 
+    console.log("body", body);
+    console.log("JSON.stringify(body)", JSON.stringify(body));
+
     try {
-      await fetch(`${backendApiUrl}/cart`, {
-        method: "PUT",
-        headers: { Authorization: `Bearer ${token}` },
+      await fetch(`${backendApiUrl}/cart/items/${itemId}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(body),
       });
     } catch (error: unknown) {

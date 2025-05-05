@@ -69,6 +69,7 @@ export async function action({ request }: Route.ActionArgs) {
 
     return { success: true, message: "Profile updated successfully" };
   } catch (error) {
+    console.error(error);
     return { success: false, message: "An error occurred" };
   }
 }
