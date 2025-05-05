@@ -14,7 +14,7 @@ export function meta({}: Route.MetaArgs) {
 export default function AboutPage() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-6">About Bakeologic</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">About Bakeologic</h1>
       <div className="prose max-w-none">
         <p className="text-lg mb-4">
           Welcome to Bakeologic, a modern e-commerce platform built as a

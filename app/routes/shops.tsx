@@ -6,7 +6,8 @@ export default function ShopsPage() {
       address: "123 Main Street, Downtown",
       hours: "Mon-Sat: 7AM - 8PM, Sun: 8AM - 6PM",
       phone: "+1 (555) 123-4567",
-      image: "/images/shop1.jpg",
+      image:
+        "https://ucarecdn.com/6533f2bc-9746-4f0c-b635-5bc9099abcab/-/preview/1000x750/",
     },
     {
       id: 2,
@@ -14,7 +15,8 @@ export default function ShopsPage() {
       address: "456 West Avenue, Westside",
       hours: "Mon-Sun: 6AM - 9PM",
       phone: "+1 (555) 234-5678",
-      image: "/images/shop2.jpg",
+      image:
+        "https://ucarecdn.com/acfd99c2-1ccc-42f0-b7a4-96eefc0d8023/-/preview/1000x666/",
     },
     {
       id: 3,
@@ -22,13 +24,14 @@ export default function ShopsPage() {
       address: "789 East Boulevard, East End",
       hours: "Mon-Sat: 8AM - 7PM, Sun: 9AM - 5PM",
       phone: "+1 (555) 345-6789",
-      image: "/images/shop3.jpg",
+      image:
+        "https://ucarecdn.com/1ffccae1-cdca-42ce-a11a-72c607c87f5d/-/preview/1000x666/",
     },
   ];
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Our Shops</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Our Shops</h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {shops.map((shop) => (
@@ -38,9 +41,7 @@ export default function ShopsPage() {
           >
             <div className="h-48 bg-gray-200">
               {/* Image placeholder - replace with actual image */}
-              <div className="w-full h-full flex items-center justify-center text-gray-500">
-                Shop Image
-              </div>
+              <img src={shop.image} alt={shop.name} className="w-full h-full" />
             </div>
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">{shop.name}</h2>
