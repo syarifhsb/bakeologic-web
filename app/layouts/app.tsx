@@ -50,8 +50,13 @@ export default function LayoutApp({ loaderData }: Route.ComponentProps) {
 
       <div className="sticky bottom-0 left-0 z-50 flex items-center justify-between w-full bg-background p-2 md:hidden border-t">
         <Button asChild variant="ghost">
-          <Link to="/cart">
+          <Link to="/cart" className="relative">
             <ShoppingCartIcon />
+            {cart && cart.totalQuantity > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                {cart?.totalQuantity > 99 ? "99+" : cart?.totalQuantity}
+              </span>
+            )}
             <span>Cart</span>
           </Link>
         </Button>

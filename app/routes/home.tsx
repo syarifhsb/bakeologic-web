@@ -34,10 +34,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           height={750}
           width={1200}
         />
-        <div className="absolute top-10 left-10 font-poppins text-white p-4 bg-amber-950 bg-opacity-50">
-          <h1 className="md:text-4xl text-2xl font-bold">Pastry</h1>
-          <h3 className="md:text-xl text-lg font-medium">
-            A delicious pastry is a perfect treat for any occasion.
+        <div className="absolute top-5 left-5 lg:top-10 lg:left-10 text-white sm:p-4 p-3 bg-amber-950 bg-opacity-50">
+          <h1 className="md:text-2xl sm:text-xl text-lg font-bold">
+            Bakeologic
+          </h1>
+          <h3 className="md:text-xl sm:text-lg text-xs font-medium">
+            Baking with logic, love and magic.
           </h3>
         </div>
       </section>

@@ -1,7 +1,16 @@
 import { MenuIcon } from "lucide-react";
-import { useState } from "react";
+import React from "react";
 import { Form, Link } from "react-router";
 import { Button } from "~/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "~/components/ui/dialog";
 import {
   Drawer,
   DrawerClose,
@@ -24,16 +33,6 @@ import {
 import { Input } from "~/components/ui/input";
 import type { AuthMeResponseSuccessBody } from "~/modules/auth/type";
 import type { MenuItems } from "~/modules/common/type";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "~/components/ui/dialog";
-import React from "react";
 
 export function MenuButton({
   menuItems,
@@ -119,6 +118,11 @@ export function MenuButton({
             <>
               <DrawerFooter>
                 <div className="mx-auto space-x-4">
+                  <DrawerClose asChild>
+                    <Button asChild>
+                      <Link to="/dashboard">Dashboard</Link>
+                    </Button>
+                  </DrawerClose>
                   <Button onClick={() => setShowLogoutDialog(true)}>
                     Logout
                   </Button>

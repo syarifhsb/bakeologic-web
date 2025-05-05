@@ -74,7 +74,7 @@ export default function Cart({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-semibold mt-5">
+      <h1 className="text-xl md:text-3xl font-semibold mt-10">
         {cart.totalQuantity === 0 ? "You have no items in your cart." : "Cart"}
       </h1>
       <div className="flex flex-col lg:flex-row items-start justify-between w-full max-w-[1200px] mx-auto gap-4 mt-6">
