@@ -39,7 +39,7 @@ export function OrderSummary({
         </ul>
       </CardContent>
       <CardFooter className="flex justify-end">
-        <Button>Order</Button>
+        <Button>Checkout</Button>
       </CardFooter>
     </Card>
   ) : null;

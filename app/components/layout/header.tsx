@@ -105,11 +105,16 @@ export function Header({
 
             {isAuthenticated && (
               <>
-                <Link to="/cart" className="flex flex-row items-center gap-x-1">
+                <Link
+                  to="/cart"
+                  className="flex flex-row items-center gap-x-1 relative"
+                >
                   <ShoppingCartIcon />
-                  {cart && cart.totalQuantity > 0
-                    ? ` : ${cart?.totalQuantity}`
-                    : ""}
+                  {cart && cart.totalQuantity > 0 && (
+                    <span className="absolute -right-3 -top-3 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                      {cart?.totalQuantity > 99 ? "99+" : cart?.totalQuantity}
+                    </span>
+                  )}
                 </Link>
                 <DropdownMenu>
                   <DropdownMenuTrigger className="cursor-pointer">

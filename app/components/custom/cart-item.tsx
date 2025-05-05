@@ -38,7 +38,7 @@ export function CartItem({
 
   return (
     <li key={slug} className={cn("", className)} {...props}>
-      <Card className="px-6">
+      <Card className="px-6 rounded-none lg:rounded-xl">
         <div className="flex flex-row">
           <div>
             <Link to={to}>
