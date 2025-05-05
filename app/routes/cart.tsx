@@ -52,9 +52,6 @@ export async function action({ request }: Route.ActionArgs) {
       quantity: Number(formData.get("quantity")),
     };
 
-    console.log("body", body);
-    console.log("JSON.stringify(body)", JSON.stringify(body));
-
     try {
       await fetch(`${backendApiUrl}/cart/items/${itemId}`, {
         method: "PATCH",
@@ -82,9 +79,16 @@ export default function Cart({ loaderData }: Route.ComponentProps) {
       </h1>
       <div className="flex flex-col lg:flex-row items-start justify-between w-full max-w-[1200px] mx-auto gap-4 mt-6">
         <ul className="flex flex-col gap-4 w-full lg:w-[600px]">
-          {cartItems.map((item) => {
-            return <CartItem key={item.id} item={item} />;
-          })}
+          {cartItems
+            .sort((a, b) => {
+              return a.createdAt && b.createdAt
+                ? new Date(a.createdAt).getTime() -
+                    new Date(b.createdAt).getTime()
+                : a.product.name.localeCompare(b.product.name);
+            })
+            .map((item) => {
+              return <CartItem key={item.id} item={item} />;
+            })}
         </ul>
         <OrderSummary cart={cart} />
       </div>
