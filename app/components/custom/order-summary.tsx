@@ -18,7 +18,7 @@ export function OrderSummary({
   cart?: CartJSON;
 }) {
   return cart && cart.totalQuantity !== 0 ? (
-    <Card className={cn("w-full lg:w-[300px]", className)} {...props}>
+    <Card className={cn("w-full lg:w-[300px] rounded-none lg:rounded-xl", className)} {...props}>
       <CardHeader>
         <CardTitle className="font-bold text-xl">Order Summary</CardTitle>
       </CardHeader>

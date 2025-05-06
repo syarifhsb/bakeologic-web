@@ -97,7 +97,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
       <h1 className="text-3xl font-bold mb-6 text-center">Dashboard</h1>
 
       <div className="max-w-3xl mx-auto">
-        <Card>
+        <Card className="rounded-none sm:rounded-xl">
           <CardHeader>
             <CardTitle>User Profile</CardTitle>
             <CardDescription>
