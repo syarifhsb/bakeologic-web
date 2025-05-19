@@ -1,7 +1,7 @@
 import pluralize from "pluralize";
 import { data, Form, href, redirect } from "react-router";
 import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
+import { InputItem } from "~/components/custom/input-item";
 import { Label } from "~/components/ui/label";
 import { backendApiUrl } from "~/env";
 import { formatPrice } from "~/lib/currency";
@@ -9,6 +9,7 @@ import type { AddToCartResponseFailedBody } from "~/modules/cart/type";
 import type { ProductJSON } from "~/modules/product/type";
 import { commitSession, getSession } from "~/sessions.server";
 import type { Route } from "./+types/products-slug";
+import * as React from "react";
 
 export function meta({ data }: Route.MetaArgs) {
   return [{ title: `${data.product.name} - Bakeologic` }];
@@ -71,6 +72,26 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
     altText: product.name,
   };
 
+  const increaseItem = () => {
+    if (quantity >= product.stockQuantity) return;
+    setQuantity(quantity + 1);
+  };
+  const decreaseItem = () => {
+    if (quantity <= 1) return;
+    setQuantity(quantity - 1);
+  };
+
+  const updateValue = (value: string) => {
+    if (isNaN(Number(value))) {
+      setQuantity(1);
+      return;
+    }
+
+    setQuantity(Number(value));
+  };
+
+  const [quantity, setQuantity] = React.useState(1);
+
   return (
     <div className="flex justify-center items-start flex-wrap gap-10 my-10 mx-5 max-w-screen-xl">
       <img
@@ -96,18 +117,32 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
 
             <div>
               <Label className="hidden">Quantity</Label>
-              <Input
+              {/* <Input
                 name="quantity"
                 className="w-18"
                 type="number"
                 min={1}
                 max={product.stockQuantity}
                 defaultValue={1}
+              /> */}
+              <InputItem
+                name="quantity"
+                className="w-30"
+                value={quantity}
+                handleMinus={decreaseItem}
+                handlePlus={increaseItem}
+                setQuantity={updateValue}
               />
             </div>
             <Button type="submit">Add to cart</Button>
           </Form>
-          {error && <p>{error}</p>}
+          {quantity > product.stockQuantity ? (
+            <span className="text-red-500 text-xs">
+              Only {product.stockQuantity}{" "}
+              {pluralize("item", product.stockQuantity)} in stock.{" "}
+            </span>
+          ) : null}
+          {error && <span className="text-red-500 text-xs">{error}</span>}
           <p>
             {product.stockQuantity} {pluralize("item", product.stockQuantity)}{" "}
             in stock
