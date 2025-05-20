@@ -1,6 +1,5 @@
 import pluralize from "pluralize";
 import { data, Form, href, redirect } from "react-router";
-import { Button } from "~/components/ui/button";
 import { InputItem } from "~/components/custom/input-item";
 import { Label } from "~/components/ui/label";
 import { backendApiUrl } from "~/env";
@@ -9,6 +8,7 @@ import type { AddToCartResponseFailedBody } from "~/modules/cart/type";
 import type { ProductJSON } from "~/modules/product/type";
 import { commitSession, getSession } from "~/sessions.server";
 import type { Route } from "./+types/products-slug";
+import { ButtonLoading } from "~/components/ui/button-loading";
 import * as React from "react";
 
 export function meta({ data }: Route.MetaArgs) {
@@ -134,7 +134,7 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
                 setQuantity={updateValue}
               />
             </div>
-            <Button type="submit">Add to cart</Button>
+            <ButtonLoading textIdle="Add to cart" textSubmitting="Adding..." />
           </Form>
           {quantity > product.stockQuantity ? (
             <span className="text-red-500 text-xs">

@@ -1,5 +1,5 @@
 import { cn } from "~/lib/cn";
-import { Button } from "~/components/ui/button";
+import { ButtonLoading } from "~/components/ui/button-loading";
 import {
   Card,
   CardContent,
@@ -53,9 +53,11 @@ export function LoginForm({
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
-                </Button>
+                <ButtonLoading
+                  className="w-full"
+                  textIdle="Login"
+                  textSubmitting="Logging in..."
+                />
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}

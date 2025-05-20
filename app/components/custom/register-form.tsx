@@ -1,5 +1,5 @@
 import { cn } from "~/lib/cn";
-import { Button } from "~/components/ui/button";
+import { ButtonLoading } from "~/components/ui/button-loading";
 import {
   Card,
   CardContent,
@@ -98,9 +98,11 @@ export function RegisterForm({
                     required
                   />
                 </div> */}
-                <Button type="submit" className="w-full">
-                  Register
-                </Button>
+                <ButtonLoading
+                  className="w-full"
+                  textIdle="Register"
+                  textSubmitting="Registering..."
+                />
               </div>
               <div className="text-center text-sm">
                 Already have an account?{" "}
