@@ -49,7 +49,7 @@ export function MenuButton({
     <Drawer>
       <DrawerTrigger asChild>
         <Button
-          className="h-10 bg-background text-foreground border-none shadow-none"
+          className="h-10 bg-background text-foreground border-none shadow-none cursor-pointer"
           variant="ghost"
         >
           <MenuIcon />
@@ -123,7 +123,10 @@ export function MenuButton({
                       <Link to="/dashboard">Dashboard</Link>
                     </Button>
                   </DrawerClose>
-                  <Button onClick={() => setShowLogoutDialog(true)}>
+                  <Button
+                    onClick={() => setShowLogoutDialog(true)}
+                    className="cursor-pointer"
+                  >
                     Logout
                   </Button>
                 </div>
@@ -142,11 +145,15 @@ export function MenuButton({
                   </DialogHeader>
                   <DialogFooter>
                     <DialogClose asChild>
-                      <Button variant="secondary">Cancel</Button>
+                      <Button variant="secondary" className="cursor-pointer">
+                        Cancel
+                      </Button>
                     </DialogClose>
                     <DialogClose asChild>
                       <Form method="post" action="/logout">
-                        <Button type="submit">Logout</Button>
+                        <Button type="submit" className="cursor-pointer">
+                          Logout
+                        </Button>
                       </Form>
                     </DialogClose>
                   </DialogFooter>

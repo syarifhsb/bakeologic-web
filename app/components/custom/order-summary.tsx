@@ -18,7 +18,13 @@ export function OrderSummary({
   cart?: CartJSON;
 }) {
   return cart && cart.totalQuantity !== 0 ? (
-    <Card className={cn("w-full lg:w-[300px] rounded-none lg:rounded-xl", className)} {...props}>
+    <Card
+      className={cn(
+        "w-full lg:w-[300px] rounded-none lg:rounded-xl",
+        className
+      )}
+      {...props}
+    >
       <CardHeader>
         <CardTitle className="font-bold text-xl">Order Summary</CardTitle>
       </CardHeader>
@@ -39,7 +45,7 @@ export function OrderSummary({
         </ul>
       </CardContent>
       <CardFooter className="flex justify-end">
-        <Button>Checkout</Button>
+        <Button className="cursor-pointer">Checkout</Button>
       </CardFooter>
     </Card>
   ) : null;

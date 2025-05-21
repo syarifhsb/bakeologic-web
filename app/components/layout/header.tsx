@@ -124,10 +124,15 @@ export function Header({
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuItem asChild>
-                      <Link to="/dashboard">Dashboard</Link>
+                      <Link to="/dashboard" className="cursor-pointer">
+                        Dashboard
+                      </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => setShowLogoutDialog(true)}>
+                    <DropdownMenuItem
+                      onClick={() => setShowLogoutDialog(true)}
+                      className="cursor-pointer"
+                    >
                       Logout
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -146,11 +151,15 @@ export function Header({
                     </DialogHeader>
                     <DialogFooter>
                       <DialogClose asChild>
-                        <Button variant="secondary">Cancel</Button>
+                        <Button variant="secondary" className="cursor-pointer">
+                          Cancel
+                        </Button>
                       </DialogClose>
                       <DialogClose asChild>
                         <Form method="post" action="/logout">
-                          <Button type="submit">Logout</Button>
+                          <Button type="submit" className="cursor-pointer">
+                            Logout
+                          </Button>
                         </Form>
                       </DialogClose>
                     </DialogFooter>
@@ -162,10 +171,14 @@ export function Header({
             {!isAuthenticated && (
               <>
                 <Button asChild size="sm" variant="secondary">
-                  <Link to="/register">Register</Link>
+                  <Link to="/register" className="cursor-pointer">
+                    Register
+                  </Link>
                 </Button>
                 <Button asChild size="sm">
-                  <Link to="/login">Login</Link>
+                  <Link to="/login" className="cursor-pointer">
+                    Login
+                  </Link>
                 </Button>
               </>
             )}
