@@ -4,11 +4,12 @@ import { Form, href, Link, useSubmit } from "react-router";
 import { ProductImage } from "~/components/custom/product-image";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { Input } from "~/components/ui/input";
 import { cn } from "~/lib/cn";
 import { formatPrice } from "~/lib/currency";
 import type { CartItemJSON } from "~/modules/cart/type";
 import { useDebounce } from "use-debounce";
+import { InputItem } from "./input-item";
+import pluralize from "pluralize";
 
 export function CartItem({
   item,
@@ -21,10 +22,6 @@ export function CartItem({
 
   const [quantity, setQuantity] = useState(item.quantity);
   const [debouncedQuantity] = useDebounce(quantity, 500);
-
-  function handleQuantityChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setQuantity(Number(event.target.value));
-  }
 
   useEffect(() => {
     if (debouncedQuantity !== item.quantity) {
@@ -83,18 +80,23 @@ export function CartItem({
                         name="item-id"
                         defaultValue={item.id}
                       />
-                      <Input
+                      <InputItem
                         name="quantity"
-                        type="number"
-                        min={1}
-                        max={item.product.stockQuantity}
-                        defaultValue={item.quantity}
-                        onChange={handleQuantityChange}
+                        className="w-30"
+                        initialQuantity={1}
+                        maxQuantity={item.product.stockQuantity}
+                        onChange={setQuantity}
                       />
                     </Form>
                   </div>
                   <span>Subtotal: {formatPrice(item.totalPrice)}</span>
                 </div>
+              </div>
+              <div className="pt-2">
+                <p>
+                  {item.product.stockQuantity}{" "}
+                  {pluralize("item", item.product.stockQuantity)} in stock
+                </p>
               </div>
             </CardContent>
           </div>

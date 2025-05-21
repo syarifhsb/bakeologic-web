@@ -1,6 +1,8 @@
 import pluralize from "pluralize";
+import * as React from "react";
 import { data, Form, href, redirect } from "react-router";
 import { InputItem } from "~/components/custom/input-item";
+import { ButtonLoading } from "~/components/ui/button-loading";
 import { Label } from "~/components/ui/label";
 import { backendApiUrl } from "~/env";
 import { formatPrice } from "~/lib/currency";
@@ -8,8 +10,6 @@ import type { AddToCartResponseFailedBody } from "~/modules/cart/type";
 import type { ProductJSON } from "~/modules/product/type";
 import { commitSession, getSession } from "~/sessions.server";
 import type { Route } from "./+types/products-slug";
-import { ButtonLoading } from "~/components/ui/button-loading";
-import * as React from "react";
 
 export function meta({ data }: Route.MetaArgs) {
   return [{ title: `${data.product.name} - Bakeologic` }];
@@ -72,24 +72,6 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
     altText: product.name,
   };
 
-  const increaseItem = () => {
-    if (quantity >= product.stockQuantity) return;
-    setQuantity(quantity + 1);
-  };
-  const decreaseItem = () => {
-    if (quantity <= 1) return;
-    setQuantity(quantity - 1);
-  };
-
-  const updateValue = (value: string) => {
-    if (isNaN(Number(value))) {
-      setQuantity(1);
-      return;
-    }
-
-    setQuantity(Number(value));
-  };
-
   const [quantity, setQuantity] = React.useState(1);
 
   return (
@@ -117,21 +99,12 @@ export default function ProductsSlug({ loaderData }: Route.ComponentProps) {
 
             <div>
               <Label className="hidden">Quantity</Label>
-              {/* <Input
-                name="quantity"
-                className="w-18"
-                type="number"
-                min={1}
-                max={product.stockQuantity}
-                defaultValue={1}
-              /> */}
               <InputItem
                 name="quantity"
                 className="w-30"
-                value={quantity}
-                handleMinus={decreaseItem}
-                handlePlus={increaseItem}
-                setQuantity={updateValue}
+                initialQuantity={1}
+                maxQuantity={product.stockQuantity}
+                onChange={setQuantity}
               />
             </div>
             <ButtonLoading textIdle="Add to cart" textSubmitting="Adding..." />
