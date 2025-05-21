@@ -85,9 +85,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
           <Logo />
         </Link>
 
-        {error && <p>{error}</p>}
-
-        <LoginForm />
+        <LoginForm errorMessage={error} />
       </section>
     </div>
   );

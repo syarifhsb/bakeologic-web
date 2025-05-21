@@ -12,9 +12,10 @@ import { Label } from "~/components/ui/label";
 import { Form, Link } from "react-router";
 
 export function LoginForm({
+  errorMessage,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+}: { errorMessage?: string } & React.ComponentPropsWithoutRef<"div">) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -53,6 +54,9 @@ export function LoginForm({
                     required
                   />
                 </div>
+                {errorMessage && (
+                  <p className="text-red-500 text-xs">{errorMessage}</p>
+                )}
                 <ButtonLoading
                   className="w-full"
                   textIdle="Login"

@@ -4,10 +4,11 @@ import { RegisterForm } from "~/components/custom/register-form";
 import { backendApiUrl } from "~/env";
 import type {
   AuthRegisterRequestBody,
-  AuthRegisterResponseBody,
+  AuthRegisterResponseFailedBody,
 } from "~/modules/auth/type";
 import type { Route } from "./+types/register";
 import { commitSession, getSession } from "~/sessions.server";
+import type { ZodError } from "zod";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Register for a new Bakeologic account" }];
@@ -18,6 +19,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   if (session.has("token")) {
     return redirect("/dashboard");
   }
+
   return data(
     { error: session.get("error") },
     { headers: { "Set-Cookie": await commitSession(session) } }
@@ -25,6 +27,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action({ request }: Route.ActionArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
+
   const formData = await request.formData();
 
   const registerData: AuthRegisterRequestBody = {
@@ -42,18 +46,31 @@ export async function action({ request }: Route.ActionArgs) {
     body: JSON.stringify(registerData),
   });
   if (!response.ok) {
-    return redirect("/register");
-  }
+    const registerResultFailed: AuthRegisterResponseFailedBody =
+      await response.json();
 
-  const registerResult: AuthRegisterResponseBody = await response.json();
-  if (!registerResult) {
-    return redirect("/register");
+    console.log(registerResultFailed);
+    if ((registerResultFailed.error as ZodError)?.name === "ZodError") {
+      const errorMessage = (registerResultFailed.error as ZodError).issues
+        .map((issue) => issue.message)
+        .join(", ");
+
+      session.flash("error", errorMessage);
+    } else {
+      console.log(registerResultFailed.message);
+      session.flash("error", registerResultFailed.message);
+    }
+
+    return redirect("/register", {
+      headers: { "Set-Cookie": await commitSession(session) },
+    });
   }
 
   return redirect("/login");
 }
 
-export default function Register() {
+export default function Register({ loaderData }: Route.ComponentProps) {
+  const { error } = loaderData;
   return (
     <div className="flex w-full min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
       <section className="flex w-full max-w-sm flex-col gap-6">
@@ -64,7 +81,7 @@ export default function Register() {
           <Logo />
         </Link>
 
-        <RegisterForm />
+        <RegisterForm errorMessage={error} />
       </section>
     </div>
   );

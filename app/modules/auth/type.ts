@@ -7,6 +7,12 @@ export type AuthRegisterRequestBody = NonNullable<
 export type AuthRegisterResponseBody =
   paths["/auth/register"]["post"]["responses"][200]["content"]["application/json"];
 
+export type AuthRegisterResponseSuccessBody =
+  paths["/auth/register"]["post"]["responses"][200]["content"]["application/json"];
+
+export type AuthRegisterResponseFailedBody =
+  paths["/auth/register"]["post"]["responses"][400]["content"]["application/json"];
+
 export type AuthLoginRequestBody = NonNullable<
   paths["/auth/login"]["post"]["requestBody"]
 >["content"]["application/json"];
