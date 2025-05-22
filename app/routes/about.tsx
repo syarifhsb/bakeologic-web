@@ -55,7 +55,7 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col space-y-2">
             <a
-              href="https://github.com/syarifhasibuan/bakeologic"
+              href="https://github.com/syarifhsb/bakeologic"
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-600 hover:text-slate-800 flex items-center"
