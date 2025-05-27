@@ -36,7 +36,7 @@ To install the project, follow these steps:
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/syarifhasibuan/bakeologic-web.git
+git clone https://github.com/syarifhsb/bakeologic-web.git
 cd bakeologic-web
 ```
 
@@ -62,5 +62,5 @@ bun run dev
 
 - [Bakeologic](https://bakeologic.syarifhasibuan.com/)
 - [Bakeologic API](https://bakeologic-api.syarifhasibuan.com/)
-- [Bakeologic Repository](https://github.com/syarifhasibuan/bakeologic)
-- [Bakeologic API Repository](https://github.com/syarifhasibuan/bakeologic-api)
+- [Bakeologic Repository](https://github.com/syarifhsb/bakeologic)
+- [Bakeologic API Repository](https://github.com/syarifhsb/bakeologic-api)
